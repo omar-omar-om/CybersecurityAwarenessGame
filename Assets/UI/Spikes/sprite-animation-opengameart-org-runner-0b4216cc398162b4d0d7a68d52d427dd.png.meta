@@ -1,0 +1,1539 @@
+fileFormatVersion: 2
+guid: f54ee9176277d254faede6cf9fd77996
+TextureImporter:
+  internalIDToNameTable: []
+  externalObjects: {}
+  serializedVersion: 12
+  mipmaps:
+    mipMapMode: 0
+    enableMipMap: 0
+    sRGBTexture: 1
+    linearTexture: 0
+    fadeOut: 0
+    borderMipMap: 0
+    mipMapsPreserveCoverage: 0
+    alphaTestReferenceValue: 0.5
+    mipMapFadeDistanceStart: 1
+    mipMapFadeDistanceEnd: 3
+  bumpmap:
+    convertToNormalMap: 0
+    externalNormalMap: 0
+    heightScale: 0.25
+    normalMapFilter: 0
+    flipGreenChannel: 0
+  isReadable: 0
+  streamingMipmaps: 0
+  streamingMipmapsPriority: 0
+  vTOnly: 0
+  ignoreMipmapLimit: 0
+  grayScaleToAlpha: 0
+  generateCubemap: 6
+  cubemapConvolution: 0
+  seamlessCubemap: 0
+  textureFormat: 1
+  maxTextureSize: 2048
+  textureSettings:
+    serializedVersion: 2
+    filterMode: 1
+    aniso: 1
+    mipBias: 0
+    wrapU: 1
+    wrapV: 1
+    wrapW: 1
+  nPOTScale: 0
+  lightmap: 0
+  compressionQuality: 50
+  spriteMode: 2
+  spriteExtrude: 1
+  spriteMeshType: 1
+  alignment: 0
+  spritePivot: {x: 0.5, y: 0.5}
+  spritePixelsToUnits: 100
+  spriteBorder: {x: 0, y: 0, z: 0, w: 0}
+  spriteGenerateFallbackPhysicsShape: 1
+  alphaUsage: 1
+  alphaIsTransparency: 1
+  spriteTessellationDetail: -1
+  textureType: 8
+  textureShape: 1
+  singleChannelComponent: 0
+  flipbookRows: 1
+  flipbookColumns: 1
+  maxTextureSizeSet: 0
+  compressionQualitySet: 0
+  textureFormatSet: 0
+  ignorePngGamma: 0
+  applyGammaDecoding: 0
+  swizzle: 50462976
+  cookieLightType: 0
+  platformSettings:
+  - serializedVersion: 3
+    buildTarget: DefaultTexturePlatform
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 3
+    buildTarget: Standalone
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 3
+    buildTarget: Server
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 3
+    buildTarget: Android
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 3
+    buildTarget: iPhone
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  spriteSheet:
+    serializedVersion: 2
+    sprites:
+    - serializedVersion: 2
+      name: sprite-animation-opengameart-org-runner-0b4216cc398162b4d0d7a68d52d427dd_0
+      rect:
+        serializedVersion: 2
+        x: 22
+        y: 538
+        width: 53
+        height: 84
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 6deddd2a40fc81d4ea89b4cf3de5e6c6
+      internalID: -907805345
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: sprite-animation-opengameart-org-runner-0b4216cc398162b4d0d7a68d52d427dd_1
+      rect:
+        serializedVersion: 2
+        x: 96
+        y: 538
+        width: 65
+        height: 94
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: e862f88f23b6b42439fdc68d5cd134be
+      internalID: 1425367870
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: sprite-animation-opengameart-org-runner-0b4216cc398162b4d0d7a68d52d427dd_2
+      rect:
+        serializedVersion: 2
+        x: 174
+        y: 538
+        width: 76
+        height: 82
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 9c75309de9930f14f9a06c76bbe1884d
+      internalID: 172615627
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: sprite-animation-opengameart-org-runner-0b4216cc398162b4d0d7a68d52d427dd_3
+      rect:
+        serializedVersion: 2
+        x: 274
+        y: 538
+        width: 55
+        height: 84
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: d4079c7840a9b304e8df6bc87d4865b5
+      internalID: 1145503884
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: sprite-animation-opengameart-org-runner-0b4216cc398162b4d0d7a68d52d427dd_4
+      rect:
+        serializedVersion: 2
+        x: 350
+        y: 538
+        width: 61
+        height: 93
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: e68728043b92c724cbb31ef96fe48a7b
+      internalID: 1214120783
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: sprite-animation-opengameart-org-runner-0b4216cc398162b4d0d7a68d52d427dd_5
+      rect:
+        serializedVersion: 2
+        x: 428
+        y: 538
+        width: 72
+        height: 80
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 58fcc6c2d684e9e46a739aaaee0356f0
+      internalID: 1153803324
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: sprite-animation-opengameart-org-runner-0b4216cc398162b4d0d7a68d52d427dd_6
+      rect:
+        serializedVersion: 2
+        x: 28
+        y: 520
+        width: 7
+        height: 7
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 3adea71e0064ded438d3d693b7145ee3
+      internalID: 338809411
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: sprite-animation-opengameart-org-runner-0b4216cc398162b4d0d7a68d52d427dd_7
+      rect:
+        serializedVersion: 2
+        x: 36
+        y: 520
+        width: 7
+        height: 7
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 334b807025ca98d4bb9aeda399bc6a05
+      internalID: -73432853
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: sprite-animation-opengameart-org-runner-0b4216cc398162b4d0d7a68d52d427dd_8
+      rect:
+        serializedVersion: 2
+        x: 44
+        y: 520
+        width: 7
+        height: 7
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: a951f7a092daaf34f90ffdb803373e6d
+      internalID: 1159182352
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: sprite-animation-opengameart-org-runner-0b4216cc398162b4d0d7a68d52d427dd_9
+      rect:
+        serializedVersion: 2
+        x: 25
+        y: 375
+        width: 46
+        height: 97
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 42f0101f125bcac42aa5bd3b7b4f054f
+      internalID: -1222270976
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: sprite-animation-opengameart-org-runner-0b4216cc398162b4d0d7a68d52d427dd_10
+      rect:
+        serializedVersion: 2
+        x: 96
+        y: 380
+        width: 62
+        height: 92
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: e7f9fd761b108794490126dcf8091ace
+      internalID: 1909326844
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: sprite-animation-opengameart-org-runner-0b4216cc398162b4d0d7a68d52d427dd_11
+      rect:
+        serializedVersion: 2
+        x: 22
+        y: 357
+        width: 7
+        height: 7
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: a831bcee152e8b94987414dabc307b27
+      internalID: -65226771
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: sprite-animation-opengameart-org-runner-0b4216cc398162b4d0d7a68d52d427dd_12
+      rect:
+        serializedVersion: 2
+        x: 30
+        y: 357
+        width: 7
+        height: 7
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 5bfeb4e5bc9af0748a04d3383105145c
+      internalID: -2004977215
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: sprite-animation-opengameart-org-runner-0b4216cc398162b4d0d7a68d52d427dd_13
+      rect:
+        serializedVersion: 2
+        x: 38
+        y: 357
+        width: 7
+        height: 7
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 8f7e543ae0ae5eb49a14408c0f4ea68f
+      internalID: 1310567867
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: sprite-animation-opengameart-org-runner-0b4216cc398162b4d0d7a68d52d427dd_14
+      rect:
+        serializedVersion: 2
+        x: 46
+        y: 357
+        width: 7
+        height: 7
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 0d2b62e7f23852340bcb72c3cda6c57e
+      internalID: 1388944635
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: sprite-animation-opengameart-org-runner-0b4216cc398162b4d0d7a68d52d427dd_15
+      rect:
+        serializedVersion: 2
+        x: 58
+        y: 357
+        width: 7
+        height: 7
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: e220f6e21391b2e47a879f474ecf8edd
+      internalID: 8114824
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: sprite-animation-opengameart-org-runner-0b4216cc398162b4d0d7a68d52d427dd_16
+      rect:
+        serializedVersion: 2
+        x: 66
+        y: 357
+        width: 7
+        height: 7
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 60d0482c7393b704fbba200dfa858255
+      internalID: 705744381
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: sprite-animation-opengameart-org-runner-0b4216cc398162b4d0d7a68d52d427dd_17
+      rect:
+        serializedVersion: 2
+        x: 94
+        y: 357
+        width: 7
+        height: 7
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 2907c2e1ca398ae4bb2b2a6f6e096098
+      internalID: 261190231
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: sprite-animation-opengameart-org-runner-0b4216cc398162b4d0d7a68d52d427dd_18
+      rect:
+        serializedVersion: 2
+        x: 102
+        y: 357
+        width: 7
+        height: 7
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: ed0b217b444d6224aad72736338c9ac3
+      internalID: -1484148029
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: sprite-animation-opengameart-org-runner-0b4216cc398162b4d0d7a68d52d427dd_19
+      rect:
+        serializedVersion: 2
+        x: 110
+        y: 357
+        width: 7
+        height: 7
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 4672097e92f7404449b0e1b800c8d276
+      internalID: -1098293207
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: sprite-animation-opengameart-org-runner-0b4216cc398162b4d0d7a68d52d427dd_20
+      rect:
+        serializedVersion: 2
+        x: 118
+        y: 357
+        width: 7
+        height: 7
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: c98710ec6eb08b247bf92a92df7b6c8b
+      internalID: -600758324
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: sprite-animation-opengameart-org-runner-0b4216cc398162b4d0d7a68d52d427dd_21
+      rect:
+        serializedVersion: 2
+        x: 130
+        y: 357
+        width: 7
+        height: 7
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 494e39a26d2db2c47ad3dd618b33d80d
+      internalID: -468196847
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: sprite-animation-opengameart-org-runner-0b4216cc398162b4d0d7a68d52d427dd_22
+      rect:
+        serializedVersion: 2
+        x: 138
+        y: 357
+        width: 7
+        height: 7
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 28ebfe5282137c242ada25e51b41e79c
+      internalID: -1351574727
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: sprite-animation-opengameart-org-runner-0b4216cc398162b4d0d7a68d52d427dd_23
+      rect:
+        serializedVersion: 2
+        x: 146
+        y: 357
+        width: 7
+        height: 7
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 3cea65b1d448a864787dd96ceb257586
+      internalID: 1381519199
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: sprite-animation-opengameart-org-runner-0b4216cc398162b4d0d7a68d52d427dd_24
+      rect:
+        serializedVersion: 2
+        x: 154
+        y: 357
+        width: 7
+        height: 7
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: af6d56d973f19554e9a6ca13ab377480
+      internalID: -1197642647
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: sprite-animation-opengameart-org-runner-0b4216cc398162b4d0d7a68d52d427dd_25
+      rect:
+        serializedVersion: 2
+        x: 12
+        y: 212
+        width: 65
+        height: 84
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 53e59190b4c54cf40a049559fb347e4b
+      internalID: -1183884075
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: sprite-animation-opengameart-org-runner-0b4216cc398162b4d0d7a68d52d427dd_26
+      rect:
+        serializedVersion: 2
+        x: 83
+        y: 212
+        width: 75
+        height: 94
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 22b7f069500af704786341b78c5c259a
+      internalID: -988567060
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: sprite-animation-opengameart-org-runner-0b4216cc398162b4d0d7a68d52d427dd_27
+      rect:
+        serializedVersion: 2
+        x: 163
+        y: 212
+        width: 76
+        height: 82
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 1c685f07686fbbc49a344bfcaec5341c
+      internalID: 1963301060
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: sprite-animation-opengameart-org-runner-0b4216cc398162b4d0d7a68d52d427dd_28
+      rect:
+        serializedVersion: 2
+        x: 257
+        y: 212
+        width: 65
+        height: 84
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: d22c1b5613f8c3a459d412b33a65fb64
+      internalID: -1090921590
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: sprite-animation-opengameart-org-runner-0b4216cc398162b4d0d7a68d52d427dd_29
+      rect:
+        serializedVersion: 2
+        x: 341
+        y: 212
+        width: 73
+        height: 93
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 3f506a948a0037d41b20c9ee02c182d4
+      internalID: -2071459462
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: sprite-animation-opengameart-org-runner-0b4216cc398162b4d0d7a68d52d427dd_30
+      rect:
+        serializedVersion: 2
+        x: 426
+        y: 212
+        width: 77
+        height: 80
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: c8fed0c32c36d23409d45d92a70c0330
+      internalID: 483129764
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: sprite-animation-opengameart-org-runner-0b4216cc398162b4d0d7a68d52d427dd_31
+      rect:
+        serializedVersion: 2
+        x: 525
+        y: 277
+        width: 7
+        height: 7
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 17c777526668d9f4ea2ad20a7ac966c2
+      internalID: -658728230
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: sprite-animation-opengameart-org-runner-0b4216cc398162b4d0d7a68d52d427dd_32
+      rect:
+        serializedVersion: 2
+        x: 533
+        y: 277
+        width: 7
+        height: 7
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: eebb7b06a71b5824096e72fab69b92cf
+      internalID: 614461079
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: sprite-animation-opengameart-org-runner-0b4216cc398162b4d0d7a68d52d427dd_33
+      rect:
+        serializedVersion: 2
+        x: 541
+        y: 277
+        width: 7
+        height: 7
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: b816672a69d47ca47b70c35b5d16a02b
+      internalID: 1735032095
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: sprite-animation-opengameart-org-runner-0b4216cc398162b4d0d7a68d52d427dd_34
+      rect:
+        serializedVersion: 2
+        x: 557
+        y: 277
+        width: 7
+        height: 7
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: a90b36c294b990f4c992499006c5e604
+      internalID: 2031254023
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: sprite-animation-opengameart-org-runner-0b4216cc398162b4d0d7a68d52d427dd_35
+      rect:
+        serializedVersion: 2
+        x: 565
+        y: 277
+        width: 7
+        height: 7
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 9ea26920b990ef44db36788220f32cc9
+      internalID: -1018260531
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: sprite-animation-opengameart-org-runner-0b4216cc398162b4d0d7a68d52d427dd_36
+      rect:
+        serializedVersion: 2
+        x: 573
+        y: 277
+        width: 7
+        height: 7
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 7981e1c9b0baa8e47a2c0382c4596f5e
+      internalID: -2028762217
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: sprite-animation-opengameart-org-runner-0b4216cc398162b4d0d7a68d52d427dd_37
+      rect:
+        serializedVersion: 2
+        x: 525
+        y: 244
+        width: 35
+        height: 24
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: fa57e9fd984e02541b42523fb879947a
+      internalID: -207846084
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: sprite-animation-opengameart-org-runner-0b4216cc398162b4d0d7a68d52d427dd_38
+      rect:
+        serializedVersion: 2
+        x: 22
+        y: 184
+        width: 7
+        height: 7
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: e04e5e1175da1da44b9b98a6b80b8dac
+      internalID: 1012117390
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: sprite-animation-opengameart-org-runner-0b4216cc398162b4d0d7a68d52d427dd_39
+      rect:
+        serializedVersion: 2
+        x: 30
+        y: 184
+        width: 7
+        height: 7
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: e677dcb1c8cc4e443ae08fe6cb0ea067
+      internalID: 389790721
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: sprite-animation-opengameart-org-runner-0b4216cc398162b4d0d7a68d52d427dd_40
+      rect:
+        serializedVersion: 2
+        x: 38
+        y: 184
+        width: 7
+        height: 7
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: ad0d96ded3945a1418178c8ead2b376d
+      internalID: -90679520
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: sprite-animation-opengameart-org-runner-0b4216cc398162b4d0d7a68d52d427dd_41
+      rect:
+        serializedVersion: 2
+        x: 54
+        y: 184
+        width: 7
+        height: 7
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 3345bbc1e1fb20540abec75381493617
+      internalID: -154850871
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: sprite-animation-opengameart-org-runner-0b4216cc398162b4d0d7a68d52d427dd_42
+      rect:
+        serializedVersion: 2
+        x: 62
+        y: 184
+        width: 7
+        height: 7
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 2f8e595a4554b7d4f944641b93469675
+      internalID: -1162174724
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: sprite-animation-opengameart-org-runner-0b4216cc398162b4d0d7a68d52d427dd_43
+      rect:
+        serializedVersion: 2
+        x: 70
+        y: 184
+        width: 7
+        height: 7
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 4fd436113b9ade84ead220174288d03a
+      internalID: -2031328347
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: sprite-animation-opengameart-org-runner-0b4216cc398162b4d0d7a68d52d427dd_44
+      rect:
+        serializedVersion: 2
+        x: 86
+        y: 184
+        width: 7
+        height: 7
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: a24011692de72bd48a22df41aef72806
+      internalID: 321316690
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: sprite-animation-opengameart-org-runner-0b4216cc398162b4d0d7a68d52d427dd_45
+      rect:
+        serializedVersion: 2
+        x: 94
+        y: 184
+        width: 7
+        height: 7
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 9f5cafa9b3d57ab4d8b1a8e8c1bf4f84
+      internalID: -64270573
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: sprite-animation-opengameart-org-runner-0b4216cc398162b4d0d7a68d52d427dd_46
+      rect:
+        serializedVersion: 2
+        x: 102
+        y: 184
+        width: 7
+        height: 7
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 6da0e534ade78c44da9c02452e5e2dac
+      internalID: -1890528089
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: sprite-animation-opengameart-org-runner-0b4216cc398162b4d0d7a68d52d427dd_47
+      rect:
+        serializedVersion: 2
+        x: 110
+        y: 184
+        width: 7
+        height: 7
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: b780e2b533a665842897bcfc63e32d75
+      internalID: 879456048
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: sprite-animation-opengameart-org-runner-0b4216cc398162b4d0d7a68d52d427dd_48
+      rect:
+        serializedVersion: 2
+        x: 119
+        y: 184
+        width: 6
+        height: 7
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 43e7ee517737f7f419e5766a949a634c
+      internalID: -625854937
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: sprite-animation-opengameart-org-runner-0b4216cc398162b4d0d7a68d52d427dd_49
+      rect:
+        serializedVersion: 2
+        x: 18
+        y: 45
+        width: 64
+        height: 97
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 537990b5313f3dc448e05c9451e8785c
+      internalID: 523500083
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: sprite-animation-opengameart-org-runner-0b4216cc398162b4d0d7a68d52d427dd_50
+      rect:
+        serializedVersion: 2
+        x: 97
+        y: 51
+        width: 72
+        height: 92
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 20667e97030104449b85390cff55ed50
+      internalID: 1495137184
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: sprite-animation-opengameart-org-runner-0b4216cc398162b4d0d7a68d52d427dd_51
+      rect:
+        serializedVersion: 2
+        x: 18
+        y: 21
+        width: 7
+        height: 7
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 7eb67c7ddd268ff4fa4b5b990d8a6774
+      internalID: 326387805
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: sprite-animation-opengameart-org-runner-0b4216cc398162b4d0d7a68d52d427dd_52
+      rect:
+        serializedVersion: 2
+        x: 26
+        y: 21
+        width: 7
+        height: 7
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 4ed099dafcec1384d997d3af2f0c604d
+      internalID: -842522264
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: sprite-animation-opengameart-org-runner-0b4216cc398162b4d0d7a68d52d427dd_53
+      rect:
+        serializedVersion: 2
+        x: 34
+        y: 21
+        width: 7
+        height: 7
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 24ca462ac6d9cd74bbb25702c502080e
+      internalID: 540962973
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: sprite-animation-opengameart-org-runner-0b4216cc398162b4d0d7a68d52d427dd_54
+      rect:
+        serializedVersion: 2
+        x: 42
+        y: 21
+        width: 7
+        height: 7
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 46e3fee3191167643b1cd45959ea5c91
+      internalID: -153574177
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: sprite-animation-opengameart-org-runner-0b4216cc398162b4d0d7a68d52d427dd_55
+      rect:
+        serializedVersion: 2
+        x: 58
+        y: 21
+        width: 7
+        height: 7
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: c5de8aeacde49b74a96dff741a8a3463
+      internalID: 358677891
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: sprite-animation-opengameart-org-runner-0b4216cc398162b4d0d7a68d52d427dd_56
+      rect:
+        serializedVersion: 2
+        x: 66
+        y: 21
+        width: 7
+        height: 7
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: ea065f9fa267df74ab56bfaac34f4e33
+      internalID: 603112130
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: sprite-animation-opengameart-org-runner-0b4216cc398162b4d0d7a68d52d427dd_57
+      rect:
+        serializedVersion: 2
+        x: 74
+        y: 21
+        width: 7
+        height: 7
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: da8fa7d6ef2b02048b497a4ba9f7c72d
+      internalID: 1733919949
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: sprite-animation-opengameart-org-runner-0b4216cc398162b4d0d7a68d52d427dd_58
+      rect:
+        serializedVersion: 2
+        x: 90
+        y: 21
+        width: 7
+        height: 7
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: eb966256508025a4daff90b322af3276
+      internalID: -2135287232
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: sprite-animation-opengameart-org-runner-0b4216cc398162b4d0d7a68d52d427dd_59
+      rect:
+        serializedVersion: 2
+        x: 98
+        y: 21
+        width: 7
+        height: 7
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: b00663dd34cec5c45bfca37a77052f22
+      internalID: 1888296866
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: sprite-animation-opengameart-org-runner-0b4216cc398162b4d0d7a68d52d427dd_60
+      rect:
+        serializedVersion: 2
+        x: 106
+        y: 21
+        width: 7
+        height: 7
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 64019219afc2ede40a28e0011c2c7178
+      internalID: 1217082549
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: sprite-animation-opengameart-org-runner-0b4216cc398162b4d0d7a68d52d427dd_61
+      rect:
+        serializedVersion: 2
+        x: 114
+        y: 21
+        width: 7
+        height: 7
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: bdba821833bd10d46b11b74461c6fcdb
+      internalID: -484640364
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: sprite-animation-opengameart-org-runner-0b4216cc398162b4d0d7a68d52d427dd_62
+      rect:
+        serializedVersion: 2
+        x: 123
+        y: 21
+        width: 6
+        height: 7
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: bbe3a8da25cbaf0498fa221aca55020d
+      internalID: 446163052
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    outline: []
+    physicsShape: []
+    bones: []
+    spriteID: 5e97eb03825dee720800000000000000
+    internalID: 0
+    vertices: []
+    indices: 
+    edges: []
+    weights: []
+    secondaryTextures: []
+    nameFileIdTable:
+      sprite-animation-opengameart-org-runner-0b4216cc398162b4d0d7a68d52d427dd_0: -907805345
+      sprite-animation-opengameart-org-runner-0b4216cc398162b4d0d7a68d52d427dd_1: 1425367870
+      sprite-animation-opengameart-org-runner-0b4216cc398162b4d0d7a68d52d427dd_10: 1909326844
+      sprite-animation-opengameart-org-runner-0b4216cc398162b4d0d7a68d52d427dd_11: -65226771
+      sprite-animation-opengameart-org-runner-0b4216cc398162b4d0d7a68d52d427dd_12: -2004977215
+      sprite-animation-opengameart-org-runner-0b4216cc398162b4d0d7a68d52d427dd_13: 1310567867
+      sprite-animation-opengameart-org-runner-0b4216cc398162b4d0d7a68d52d427dd_14: 1388944635
+      sprite-animation-opengameart-org-runner-0b4216cc398162b4d0d7a68d52d427dd_15: 8114824
+      sprite-animation-opengameart-org-runner-0b4216cc398162b4d0d7a68d52d427dd_16: 705744381
+      sprite-animation-opengameart-org-runner-0b4216cc398162b4d0d7a68d52d427dd_17: 261190231
+      sprite-animation-opengameart-org-runner-0b4216cc398162b4d0d7a68d52d427dd_18: -1484148029
+      sprite-animation-opengameart-org-runner-0b4216cc398162b4d0d7a68d52d427dd_19: -1098293207
+      sprite-animation-opengameart-org-runner-0b4216cc398162b4d0d7a68d52d427dd_2: 172615627
+      sprite-animation-opengameart-org-runner-0b4216cc398162b4d0d7a68d52d427dd_20: -600758324
+      sprite-animation-opengameart-org-runner-0b4216cc398162b4d0d7a68d52d427dd_21: -468196847
+      sprite-animation-opengameart-org-runner-0b4216cc398162b4d0d7a68d52d427dd_22: -1351574727
+      sprite-animation-opengameart-org-runner-0b4216cc398162b4d0d7a68d52d427dd_23: 1381519199
+      sprite-animation-opengameart-org-runner-0b4216cc398162b4d0d7a68d52d427dd_24: -1197642647
+      sprite-animation-opengameart-org-runner-0b4216cc398162b4d0d7a68d52d427dd_25: -1183884075
+      sprite-animation-opengameart-org-runner-0b4216cc398162b4d0d7a68d52d427dd_26: -988567060
+      sprite-animation-opengameart-org-runner-0b4216cc398162b4d0d7a68d52d427dd_27: 1963301060
+      sprite-animation-opengameart-org-runner-0b4216cc398162b4d0d7a68d52d427dd_28: -1090921590
+      sprite-animation-opengameart-org-runner-0b4216cc398162b4d0d7a68d52d427dd_29: -2071459462
+      sprite-animation-opengameart-org-runner-0b4216cc398162b4d0d7a68d52d427dd_3: 1145503884
+      sprite-animation-opengameart-org-runner-0b4216cc398162b4d0d7a68d52d427dd_30: 483129764
+      sprite-animation-opengameart-org-runner-0b4216cc398162b4d0d7a68d52d427dd_31: -658728230
+      sprite-animation-opengameart-org-runner-0b4216cc398162b4d0d7a68d52d427dd_32: 614461079
+      sprite-animation-opengameart-org-runner-0b4216cc398162b4d0d7a68d52d427dd_33: 1735032095
+      sprite-animation-opengameart-org-runner-0b4216cc398162b4d0d7a68d52d427dd_34: 2031254023
+      sprite-animation-opengameart-org-runner-0b4216cc398162b4d0d7a68d52d427dd_35: -1018260531
+      sprite-animation-opengameart-org-runner-0b4216cc398162b4d0d7a68d52d427dd_36: -2028762217
+      sprite-animation-opengameart-org-runner-0b4216cc398162b4d0d7a68d52d427dd_37: -207846084
+      sprite-animation-opengameart-org-runner-0b4216cc398162b4d0d7a68d52d427dd_38: 1012117390
+      sprite-animation-opengameart-org-runner-0b4216cc398162b4d0d7a68d52d427dd_39: 389790721
+      sprite-animation-opengameart-org-runner-0b4216cc398162b4d0d7a68d52d427dd_4: 1214120783
+      sprite-animation-opengameart-org-runner-0b4216cc398162b4d0d7a68d52d427dd_40: -90679520
+      sprite-animation-opengameart-org-runner-0b4216cc398162b4d0d7a68d52d427dd_41: -154850871
+      sprite-animation-opengameart-org-runner-0b4216cc398162b4d0d7a68d52d427dd_42: -1162174724
+      sprite-animation-opengameart-org-runner-0b4216cc398162b4d0d7a68d52d427dd_43: -2031328347
+      sprite-animation-opengameart-org-runner-0b4216cc398162b4d0d7a68d52d427dd_44: 321316690
+      sprite-animation-opengameart-org-runner-0b4216cc398162b4d0d7a68d52d427dd_45: -64270573
+      sprite-animation-opengameart-org-runner-0b4216cc398162b4d0d7a68d52d427dd_46: -1890528089
+      sprite-animation-opengameart-org-runner-0b4216cc398162b4d0d7a68d52d427dd_47: 879456048
+      sprite-animation-opengameart-org-runner-0b4216cc398162b4d0d7a68d52d427dd_48: -625854937
+      sprite-animation-opengameart-org-runner-0b4216cc398162b4d0d7a68d52d427dd_49: 523500083
+      sprite-animation-opengameart-org-runner-0b4216cc398162b4d0d7a68d52d427dd_5: 1153803324
+      sprite-animation-opengameart-org-runner-0b4216cc398162b4d0d7a68d52d427dd_50: 1495137184
+      sprite-animation-opengameart-org-runner-0b4216cc398162b4d0d7a68d52d427dd_51: 326387805
+      sprite-animation-opengameart-org-runner-0b4216cc398162b4d0d7a68d52d427dd_52: -842522264
+      sprite-animation-opengameart-org-runner-0b4216cc398162b4d0d7a68d52d427dd_53: 540962973
+      sprite-animation-opengameart-org-runner-0b4216cc398162b4d0d7a68d52d427dd_54: -153574177
+      sprite-animation-opengameart-org-runner-0b4216cc398162b4d0d7a68d52d427dd_55: 358677891
+      sprite-animation-opengameart-org-runner-0b4216cc398162b4d0d7a68d52d427dd_56: 603112130
+      sprite-animation-opengameart-org-runner-0b4216cc398162b4d0d7a68d52d427dd_57: 1733919949
+      sprite-animation-opengameart-org-runner-0b4216cc398162b4d0d7a68d52d427dd_58: -2135287232
+      sprite-animation-opengameart-org-runner-0b4216cc398162b4d0d7a68d52d427dd_59: 1888296866
+      sprite-animation-opengameart-org-runner-0b4216cc398162b4d0d7a68d52d427dd_6: 338809411
+      sprite-animation-opengameart-org-runner-0b4216cc398162b4d0d7a68d52d427dd_60: 1217082549
+      sprite-animation-opengameart-org-runner-0b4216cc398162b4d0d7a68d52d427dd_61: -484640364
+      sprite-animation-opengameart-org-runner-0b4216cc398162b4d0d7a68d52d427dd_62: 446163052
+      sprite-animation-opengameart-org-runner-0b4216cc398162b4d0d7a68d52d427dd_7: -73432853
+      sprite-animation-opengameart-org-runner-0b4216cc398162b4d0d7a68d52d427dd_8: 1159182352
+      sprite-animation-opengameart-org-runner-0b4216cc398162b4d0d7a68d52d427dd_9: -1222270976
+  mipmapLimitGroupName: 
+  pSDRemoveMatte: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
