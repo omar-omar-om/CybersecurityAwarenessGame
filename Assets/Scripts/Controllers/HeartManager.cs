@@ -9,45 +9,38 @@ public class HeartManager : MonoBehaviour
     public PlayerDamageFlash playerFlash;  
     private HeartSystem heartSystem;
     
-    // Tell UI when hearts change
+    // Event that UI can subscribe to
     public static event Action<int> OnHealthChanged;
 
     private void Start()
     {
-        // Start with 3 hearts
-        heartSystem = new HeartSystem();
-        
-        // Update UI whenever hearts change
+        heartSystem = new HeartSystem(); // Start with 3 hearts
         heartSystem.OnHeartsChanged += UpdateHealth;
-        
-        // Show starting hearts
-        heartSystem.ResetHearts();
+        heartSystem.ResetHearts(); // Initial UI setup
 
-        // Remember which level we're on for game over screen
+        // Store current level name when starting
         GameOverController.SetLastPlayedLevel(SceneManager.GetActiveScene().name);
     }
 
-    private void UpdateHealth(int currentHealth)
+    private void UpdateHealth(int health)
     {
-        // Update the hearts display
-        OnHealthChanged?.Invoke(currentHealth);
+        OnHealthChanged?.Invoke(health);
     }
 
-    public void TakeDamage(int damageAmount)
+    public void TakeDamage(int amount)
     {
-        // Lose hearts
-        heartSystem.TakeDamage(damageAmount);
+        heartSystem.TakeDamage(amount);
 
-        // Flash red when hurt
+        // Trigger red flash effect on player
         if (playerFlash != null)
         {
             playerFlash.Flash();
         }
 
-        // Game over if no hearts left
         if (heartSystem.CurrentHearts <= 0)
         {
             Debug.Log("Game Over!");
+            // Load the game over scene
             SceneManager.LoadScene("GameOver");
         }
     }
@@ -57,8 +50,8 @@ public class HeartManager : MonoBehaviour
         return heartSystem.CurrentHearts;
     }
 
-    public void RestoreHealth(int healAmount)
+    public void RestoreHealth(int amount)
     {
-        heartSystem.RestoreHealth(healAmount);
+        heartSystem.RestoreHealth(amount);
     }
 }

@@ -13,33 +13,55 @@ public class PlayerDamageFlash : MonoBehaviour
     // How long to show the flash
     public float flashDuration = 0.1f;
 
+    private Color originalColor;
+    private Coroutine flashCoroutine;
+
     // Called when game starts
     private void Awake()
     {
         // Get the SpriteRenderer component
         spriteRenderer = GetComponent<SpriteRenderer>();
+        originalColor = spriteRenderer.color;  // Store original color at start
+    }
+
+    private void OnDisable()
+    {
+        // Make sure we reset color when disabled
+        if (spriteRenderer != null)
+        {
+            spriteRenderer.color = originalColor;
+        }
+        
+        if (flashCoroutine != null)
+        {
+            StopCoroutine(flashCoroutine);
+            flashCoroutine = null;
+        }
     }
 
     // Called when player takes damage
     public void Flash()
     {
-        // Start the flash effect
-        StartCoroutine(FlashEffect());
+        // Stop existing flash if it's running
+        if (flashCoroutine != null)
+        {
+            StopCoroutine(flashCoroutine);
+        }
+        
+        // Start new flash
+        flashCoroutine = StartCoroutine(FlashEffect());
     }
 
     // Coroutine to handle the flash effect
     private IEnumerator FlashEffect()
     {
-        // Save the original color
-        Color originalColor = spriteRenderer.color;
-
-        // Change to flash color (red)
+        // Change to flash color
         spriteRenderer.color = flashColor;
 
-        // Wait for flash duration
         yield return new WaitForSeconds(flashDuration);
 
-        // Change back to original color
+        // Always reset to original color
         spriteRenderer.color = originalColor;
+        flashCoroutine = null;
     }
 }

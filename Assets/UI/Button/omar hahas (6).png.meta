@@ -1,5 +1,5 @@
 fileFormatVersion: 2
-guid: 667f0ae75f982e9408f5a92304726bee
+guid: 09c5d1c31cf06c5419187106e97fd544
 TextureImporter:
   internalIDToNameTable: []
   externalObjects: {}
@@ -43,7 +43,7 @@ TextureImporter:
   nPOTScale: 0
   lightmap: 0
   compressionQuality: 50
-  spriteMode: 2
+  spriteMode: 1
   spriteExtrude: 1
   spriteMeshType: 1
   alignment: 0
@@ -134,133 +134,7 @@ TextureImporter:
     forceMaximumCompressionQuality_BC6H_BC7: 0
   spriteSheet:
     serializedVersion: 2
-    sprites:
-    - serializedVersion: 2
-      name: omar-removebg-preview_0
-      rect:
-        serializedVersion: 2
-        x: 58
-        y: 205
-        width: 141
-        height: 158
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: 1794d7b3302dd0547ba048558a9ae490
-      internalID: 2126531957
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: omar-removebg-preview_1
-      rect:
-        serializedVersion: 2
-        x: 254
-        y: 205
-        width: 158
-        height: 158
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: 52bb467affd75864fad793073a46fc60
-      internalID: 1167651254
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: omar-removebg-preview_2
-      rect:
-        serializedVersion: 2
-        x: 457
-        y: 203
-        width: 159
-        height: 159
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: 5a4cb01c4f7a28f4f900465cd68bffcb
-      internalID: 1089573339
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: omar-removebg-preview_4
-      rect:
-        serializedVersion: 2
-        x: 58
-        y: 30
-        width: 148
-        height: 158
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: 8af4daa18391fa04593ba92bd05cf9ee
-      internalID: 627882156
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: omar-removebg-preview_5
-      rect:
-        serializedVersion: 2
-        x: 254
-        y: 26
-        width: 158
-        height: 159
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: 00bac344130db284ab84e2bba01996ab
-      internalID: 1517911313
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: omar-removebg-preview_6
-      rect:
-        serializedVersion: 2
-        x: 459
-        y: 34
-        width: 162
-        height: 159
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: 616c019b3f2634a408e6da1de6b0275c
-      internalID: -285600869
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
+    sprites: []
     outline: []
     physicsShape: []
     bones: []
@@ -271,15 +145,7 @@ TextureImporter:
     edges: []
     weights: []
     secondaryTextures: []
-    nameFileIdTable:
-      omar-removebg-preview_0: 2126531957
-      omar-removebg-preview_1: 1167651254
-      omar-removebg-preview_2: 1089573339
-      omar-removebg-preview_3: -1378230113
-      omar-removebg-preview_4: 627882156
-      omar-removebg-preview_5: 1517911313
-      omar-removebg-preview_6: -285600869
-      omar-removebg-preview_7: 1690475693
+    nameFileIdTable: {}
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

@@ -4,15 +4,15 @@ using UnityEngine;
 
 public class ObstacleMovement : MonoBehaviour
 {
-    // How fast to move left
+    // How fast the obstacle moves
     public float speed = 5f;
  
     void Update()
     {
-        // Keep moving left
+        // Move obstacle to the left
         transform.position += Vector3.left * speed * Time.deltaTime;
 
-        // Remove when off screen
+        // Destroy obstacle when it's off screen
         if (transform.position.x < -10f)
         {
             Destroy(gameObject);

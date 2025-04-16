@@ -9,10 +9,10 @@ public class ShieldCollect : MonoBehaviour
     {
         if (other.CompareTag("Player"))
         {
-            // Give player a shield
+            // Add shield count through ScoreManager only
             ScoreManager.Instance.AddShield();
 
-            // Remove shield from game
+            // Destroy the shield object after pickup
             Destroy(gameObject);
         }
     }

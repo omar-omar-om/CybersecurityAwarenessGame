@@ -1,5 +1,9 @@
-using UnityEngine;
 using System.Collections;
+using System.Collections.Generic;
+using UnityEngine;
+using UnityEngine.UI;
+using TMPro;
+using UnityEngine.EventSystems;
 using UnityEngine.SceneManagement;
 
 public class QuestionController : MonoBehaviour
@@ -226,46 +230,15 @@ public class QuestionController : MonoBehaviour
     private void ShowShieldChoice()
     {
         isShowingShieldChoice = true;
-        
-        // Create a simple shield choice question
-        QuestionModel.QuestionData shieldChoice = CreateShieldChoiceQuestion();
-        
-        // Show the question to the player
-        view.DisplayQuestion(shieldChoice);
-        
-        // Start the timer for the shield choice
-        StartCoroutine(ShieldChoiceTimer());
-    }
-
-    private QuestionModel.QuestionData CreateShieldChoiceQuestion()
-    {
-        // Create a new question for shield choice
-        QuestionModel.QuestionData shieldChoice = new QuestionModel.QuestionData();
-        
-        // Set the question text
-        shieldChoice.questionText = "Do you want to enter with all " + currentShieldCount + " shields you have so far?";
-        
-        // Set the answer options
-        shieldChoice.answers = new string[] { "Yes", "No" };
-        
-        // Set correct answer index to 0 to show both buttons
-        shieldChoice.correctAnswerIndex = 0;
-        
-        return shieldChoice;
-    }
-
-    private void HandleShieldChoice(bool choseYes)
-    {
-        isShowingShieldChoice = false;
-        
-        if (choseYes)
+        // Use the same question panel but with shield choice text
+        QuestionModel.QuestionData shieldChoice = new QuestionModel.QuestionData
         {
-            // Player chose to bet all shields
-            ScoreManager.Instance.SetBettingAllShields(true);
-        }
-        
-        // Start the actual question
-        StartNormalQuestion();
+            questionText = "Do you want to enter with all " + currentShieldCount + " shields you have so far?",
+            answers = new string[] { "Yes", "No" },
+            correctAnswerIndex = 0  // Set to 0 to ensure both buttons are positioned correctly
+        };
+        view.DisplayQuestion(shieldChoice);
+        StartCoroutine(ShieldChoiceTimer());
     }
 
     private IEnumerator ShieldChoiceTimer()
@@ -282,5 +255,26 @@ public class QuestionController : MonoBehaviour
         {
             HandleShieldChoice(false);
         }
+    }
+
+    private void HandleShieldChoice(bool useAllShields)
+    {
+        isShowingShieldChoice = false;
+        if (useAllShields)
+        {
+            // Player chose to bet all shields
+            ScoreManager.Instance.SetBettingAllShields(true);
+            // Reset shields since they're being bet
+            ScoreManager.Instance.ResetShields();
+        }
+        else
+        {
+            // Player chose to save shields
+            ScoreManager.Instance.SetBettingAllShields(false);
+            // Keep the shields for next time
+        }
+        
+        // Now show the actual question
+        StartNormalQuestion();
     }
 } 

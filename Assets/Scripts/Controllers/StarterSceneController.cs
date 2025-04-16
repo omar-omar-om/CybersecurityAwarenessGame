@@ -1,6 +1,7 @@
+using System.Collections;
+using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
-using System.Collections;
 
 public class StarterSceneController : MonoBehaviour
 {
@@ -14,8 +15,8 @@ public class StarterSceneController : MonoBehaviour
 
     void Start()
     {
-        // Force portrait orientation
-        Screen.orientation = ScreenOrientation.Portrait;
+        // Force landscape orientation
+        Screen.orientation = ScreenOrientation.LandscapeLeft;
         
         // Start the transition coroutine
         StartCoroutine(TransitionToMainMenu());
@@ -23,8 +24,8 @@ public class StarterSceneController : MonoBehaviour
 
     void Awake()
     {
-        // Ensure portrait orientation from the very beginning
-        Screen.orientation = ScreenOrientation.Portrait;
+        // Ensure landscape orientation from the very beginning
+        Screen.orientation = ScreenOrientation.LandscapeLeft;
     }
 
     IEnumerator TransitionToMainMenu()
