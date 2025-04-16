@@ -20,19 +20,29 @@ public class NetworkManager : MonoBehaviour
         if (Instance == null)
         {
             Instance = this;
-            DontDestroyOnLoad(gameObject); // Make this persist between scenes
+            DontDestroyOnLoad(gameObject);
         }
         else
         {
-            Destroy(gameObject); // Ensure only one instance exists
+            Destroy(gameObject); 
         }
     }
 
     // Register user
     public IEnumerator Register(string username, string email, string password, string securityQuestion, string securityAnswer, Action<bool, string> callback)
     {
-        // Convert to JSON
-        string jsonData = JsonUtility.ToJson(new RegisterData(username, email, password, securityQuestion, securityAnswer));
+        // Create a dictionary with the registration data
+        var registrationData = new Dictionary<string, string>
+        {
+            { "username", username },
+            { "email", email },
+            { "password", password },
+            { "securityQuestion", securityQuestion },
+            { "securityAnswer", securityAnswer }
+        };
+
+        // Convert dictionary to JSON string
+        string jsonData = JsonUtility.ToJson(registrationData);
 
         // Send request to server
         using (UnityWebRequest www = UnityWebRequest.PostWwwForm(serverUrl + "/api/register", ""))
@@ -74,23 +84,58 @@ public class NetworkManager : MonoBehaviour
         }
     }
 
-    // Class for registration data
-    [Serializable]
-    private class RegisterData
+    // Login user
+    public IEnumerator Login(string email, string password, Action<bool, string, bool> callback)
     {
-        public string username;
-        public string email;
-        public string password;
-        public string securityQuestion;
-        public string securityAnswer;
-
-        public RegisterData(string username, string email, string password, string securityQuestion, string securityAnswer)
+        // Create login data
+        var loginData = new Dictionary<string, string>
         {
-            this.username = username;
-            this.email = email;
-            this.password = password;
-            this.securityQuestion = securityQuestion;
-            this.securityAnswer = securityAnswer;
+            { "email", email },
+            { "password", password },
+            { "deviceIdentifier", SystemInfo.deviceUniqueIdentifier }
+        };
+
+        // Convert to JSON
+        string jsonData = JsonUtility.ToJson(loginData);
+
+        // Send request to server
+        using (UnityWebRequest www = UnityWebRequest.PostWwwForm(serverUrl + "/api/login", ""))
+        {
+            byte[] bodyRaw = Encoding.UTF8.GetBytes(jsonData);
+            www.uploadHandler = new UploadHandlerRaw(bodyRaw);
+            www.downloadHandler = new DownloadHandlerBuffer();
+            www.SetRequestHeader("Content-Type", "application/json");
+
+            yield return www.SendWebRequest();
+
+            if (www.result == UnityWebRequest.Result.Success)
+            {
+                // Parse response
+                LoginResponse response = JsonUtility.FromJson<LoginResponse>(www.downloadHandler.text);
+                callback(true, response.message, response.requiresVerification);
+            }
+            else
+            {
+                // Handle error response
+                string errorMessage = "Login failed: ";
+                try
+                {
+                    ErrorResponse error = JsonUtility.FromJson<ErrorResponse>(www.downloadHandler.text);
+                    if (!string.IsNullOrEmpty(error.error))
+                    {
+                        errorMessage += error.error;
+                    }
+                    else
+                    {
+                        errorMessage += www.error;
+                    }
+                }
+                catch
+                {
+                    errorMessage += www.error;
+                }
+                callback(false, errorMessage, false);
+            }
         }
     }
 
@@ -99,5 +144,14 @@ public class NetworkManager : MonoBehaviour
     private class ErrorResponse
     {
         public string error;
+    }
+
+    // Class for login response
+    [Serializable]
+    private class LoginResponse
+    {
+        public string message;
+        public bool requiresVerification;
+        public int userId;
     }
 } 

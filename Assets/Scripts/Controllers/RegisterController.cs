@@ -65,6 +65,6 @@ public class RegisterController : MonoBehaviour
     private void HandleBackToLogin()
     {
        
-        SceneManager.LoadScene("LoginScene");
+        SceneManager.LoadScene("Login");
     }
 } 
