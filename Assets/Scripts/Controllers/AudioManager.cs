@@ -41,7 +41,6 @@ public class AudioManager : MonoBehaviour
             backgroundMusic.loop = true; // Make it loop continuously
             backgroundMusic.playOnAwake = true;
             
-            // Start playing
             backgroundMusic.Play();
         }
         else

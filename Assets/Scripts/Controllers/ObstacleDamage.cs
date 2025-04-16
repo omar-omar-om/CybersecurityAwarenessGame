@@ -8,7 +8,7 @@ public class ObstacleDamage : MonoBehaviour
     public int damageAmount = 1;
     
     // how long to wait before this obstacle can hurt player again
-    private float cooldownDuration = 0.5f;
+    [SerializeField] private float cooldownDuration = 0.5f;
     
     // can this obstacle hurt the player right now?
     private bool canDamage = true;
@@ -19,6 +19,9 @@ public class ObstacleDamage : MonoBehaviour
     // we need these to play sounds and take health
     private HeartManager heartManager;
     private AudioManager audioManager;
+    private PlayerDamageFlash playerFlash;
+
+    private Coroutine cooldownCoroutine;  // Track the cooldown coroutine
 
     private void Start()
     {
@@ -27,12 +30,27 @@ public class ObstacleDamage : MonoBehaviour
         audioManager = FindObjectOfType<AudioManager>();
     }
 
+    private void OnDisable()
+    {
+        // Reset when disabled/destroyed
+        if (cooldownCoroutine != null)
+        {
+            StopCoroutine(cooldownCoroutine);
+        }
+        canDamage = true;
+    }
+
     // called when something enters  trigger
     private void OnTriggerEnter2D(Collider2D other)
     {
         if (other.CompareTag("Player"))
         {
             isCollidingWithPlayer = true;
+            // Get the flash component when we first hit the player
+            if (playerFlash == null)
+            {
+                playerFlash = other.GetComponent<PlayerDamageFlash>();
+            }
             TryDamagePlayer();
         }
     }
@@ -49,7 +67,13 @@ public class ObstacleDamage : MonoBehaviour
     // try to hurt the player
     private void TryDamagePlayer()
     {
-        if (canDamage == false || isCollidingWithPlayer == false) return;
+        if (!canDamage || !isCollidingWithPlayer) return;
+        
+        // Stop any existing cooldown
+        if (cooldownCoroutine != null)
+        {
+            StopCoroutine(cooldownCoroutine);
+        }
         
         // play hit sound
         if (audioManager != null)
@@ -63,8 +87,13 @@ public class ObstacleDamage : MonoBehaviour
             heartManager.TakeDamage(damageAmount);
         }
 
-        // start cooldown so we can't hurt player again right away ( resolved issue i had)
-        StartCoroutine(DamageCooldown());
+        // Trigger the flash effect
+        if (playerFlash != null)
+        {
+            playerFlash.Flash();
+        }
+
+        cooldownCoroutine = StartCoroutine(DamageCooldown());
     }
 
     // wait a bit before we can hurt player again
@@ -73,6 +102,7 @@ public class ObstacleDamage : MonoBehaviour
         canDamage = false;
         yield return new WaitForSeconds(cooldownDuration);
         canDamage = true;
+        cooldownCoroutine = null;
     }
 }
 

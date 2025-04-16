@@ -4,19 +4,19 @@ using UnityEngine;
 
 public class ShieldSpawner : MonoBehaviour
 {
-    // The shield to spawn
+    // Shield prefab to spawn
     public GameObject shieldPrefab;
     
-    // Where to put the shields
+    // Where to spawn shields
     public Transform spawnPoint;
     
-    // Keep track of time
+    // Timer to track when to spawn next
     private float shieldTimer = 0f;
     
-    // Wait 5.5 seconds between shields (so they don't hit obstacles)
+    // How often to spawn shields (5.5 seconds to avoid overlapping with obstacles)
     public float spawnInterval = 5.5f;
 
-    // Stop spawning during questions
+    // Can shields spawn?
     public static bool canSpawn = true;
 
     // Called every frame
@@ -39,18 +39,18 @@ public class ShieldSpawner : MonoBehaviour
     // Spawn a shield in a random position
     void SpawnShield()
     {
-        // Sometimes on ground, sometimes in air
+        // Pick random pattern (0 = ground level, 1 = in air)
         int pattern = Random.Range(0, 2);
 
         if (pattern == 0)
         {
-            // Put shield on the ground
+            // Spawn shield at ground level
             Vector3 pos = new Vector3(spawnPoint.position.x, -3.40f, spawnPoint.position.z);
             Instantiate(shieldPrefab, pos, Quaternion.identity);
         }
         else
         {
-            // Put shield up high (need to jump)
+            // Spawn shield in air (player needs to jump)
             Vector3 pos = new Vector3(spawnPoint.position.x, spawnPoint.position.y + 1.5f, spawnPoint.position.z);
             Instantiate(shieldPrefab, pos, Quaternion.identity);
         }

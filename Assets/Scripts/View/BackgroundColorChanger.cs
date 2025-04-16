@@ -43,17 +43,7 @@ public class BackgroundColorChanger : MonoBehaviour
         if (backgroundRenderer == null) return;
 
         // Get current transition duration based on color
-        float currentDuration;
-        if (currentColorIndex == 1)
-        {
-            // If we're on the blue color (index 1), add extra time
-            currentDuration = baseDuration + extraBlueTime;
-        }
-        else
-        {
-            // For all other colors use the base duration
-            currentDuration = baseDuration;
-        }
+        float currentDuration = (currentColorIndex == 1) ? baseDuration + extraBlueTime : baseDuration;
 
         // Update transition progress
         transitionProgress += Time.deltaTime / currentDuration;

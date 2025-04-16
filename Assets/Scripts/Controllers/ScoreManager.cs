@@ -1,3 +1,5 @@
+using System.Collections;
+using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
 using UnityEngine.SceneManagement;
@@ -95,103 +97,82 @@ public class ScoreManager : MonoBehaviour
     // Called when player answers a question
     public void ProcessQuestionResult(bool isCorrect)
     {
-        if (SceneManager.GetActiveScene().name == "Level2")
+        if (SceneManager.GetActiveScene().name == "Level2" && isBettingAllShields)
         {
-            ProcessLevel2QuestionResult(isCorrect);
+            // Level 2 with all shields bet
+            if (isCorrect)
+            {
+                score += savedShields; // Add points equal to all shields that were bet
+            }
+            else
+            {
+                score -= savedShields; // Subtract points equal to all shields that were bet
+            }
+            // Shields are already reset when betting
+        }
+        else if (SceneManager.GetActiveScene().name == "Level2")
+        {
+            // Level 2 without betting (shields were saved)
+            if (isCorrect)
+            {
+                score += 1; // Always just 1 point when shields are saved
+            }
+            else
+            {
+                score -= 1; // Always just -1 point when shields are saved
+            }
+            // Don't reset shields since they were saved
         }
         else
         {
-            ProcessLevel1QuestionResult(isCorrect);
-        }
-        
-        // Reset betting state and update UI
-        ResetBettingState();
-        UpdateShieldDisplay();
-        UpdateScoreDisplay();
-    }
-
-    private void ProcessLevel2QuestionResult(bool isCorrect)
-    {
-        if (isBettingAllShields)
-        {
-            // Player bet all their shields
+            // Original Level 1 behavior
             if (isCorrect)
             {
-                score += savedShields; // Win points equal to shields bet
+                if (shields == 0)
+                {
+                    score += 1; // Add 1 point if no shields
+                }
+                else
+                {
+                    score += shields; // Add points equal to shields collected
+                }
+                
+                correctAnswersInARow++;
+                
+                if (correctAnswersInARow >= 3)
+                {
+                    correctAnswersInARow = 0;
+                    TryGiveHealthBonus();
+                }
             }
             else
             {
-                score -= savedShields; // Lose points equal to shields bet
-            }
-        }
-        else
-        {
-            // Player saved their shields
-            if (isCorrect)
-            {
-                score += 1; // Win 1 point
-            }
-            else
-            {
-                score -= 1; // Lose 1 point
-            }
-        }
-    }
-
-    private void ProcessLevel1QuestionResult(bool isCorrect)
-    {
-        if (isCorrect)
-        {
-            // Player got the question right
-            if (shields == 0)
-            {
-                score += 1; // Win 1 point if no shields
-            }
-            else
-            {
-                score += shields; // Win points equal to shields collected
-            }
-            
-            correctAnswersInARow++;
-            
-            // Check for health bonus
-            if (correctAnswersInARow >= 3)
-            {
+                if (shields == 0)
+                {
+                    score -= 1; // Subtract 1 point if no shields
+                }
+                else
+                {
+                    score -= shields; // Subtract points equal to shields collected
+                }
                 correctAnswersInARow = 0;
-                TryGiveHealthBonus();
             }
-        }
-        else
-        {
-            // Player got the question wrong
-            if (shields == 0)
-            {
-                score -= 1; // Lose 1 point if no shields
-            }
-            else
-            {
-                score -= shields; // Lose points equal to shields collected
-            }
-            correctAnswersInARow = 0;
+            
+            // Reset shields after question (only in Level 1)
+            shields = 0;
         }
         
-        // Reset shields after question in Level 1
-        shields = 0;
-    }
-
-    private void ResetBettingState()
-    {
+        // Reset betting state
         isBettingAllShields = false;
         savedShields = 0;
-    }
-
-    private void UpdateShieldDisplay()
-    {
+        
+        // Update UI
         ShieldManager.Instance.ResetShieldCount();
         for (int i = 0; i < shields; i++)
         {
             ShieldManager.Instance.AddShield();
         }
+        UpdateScoreDisplay();
     }
 
     // Try to give health bonus after 3 correct answers

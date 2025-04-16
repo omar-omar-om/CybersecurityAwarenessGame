@@ -1,6 +1,7 @@
+using System.Collections;
+using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
-using System.Collections;
 using TMPro;
 
 public class CountdownController : MonoBehaviour
@@ -9,9 +10,15 @@ public class CountdownController : MonoBehaviour
     public float countdownDuration = 1f; // Duration for each number
     public AudioClip countdownSound; // Sound to play for each number
     private AudioSource audioSource;
+    private PlayerJump playerJump;
+    private GroundVFX groundVFX;
 
     void Start()
     {
+        // Find the player's PlayerJump component
+        playerJump = FindObjectOfType<PlayerJump>();
+        groundVFX = FindObjectOfType<GroundVFX>();
+        
         // Initially hide the text
         countdownText.gameObject.SetActive(false);
         
@@ -56,5 +63,14 @@ public class CountdownController : MonoBehaviour
         
         // Enable obstacle spawning
         ObstacleSpawner.canSpawn = true;
+
+        // Start the player's animation and particles
+        playerJump.StartAnimation();
+
+        // Start the ground VFX
+        if (groundVFX != null)
+        {
+            groundVFX.StartVFX();
+        }
     }
 } 

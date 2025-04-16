@@ -4,16 +4,16 @@ using UnityEngine;
 
 public class ShieldMovement : MonoBehaviour
 {
-    // How fast to move left
+    // How fast the shield moves
     public float moveSpeed = 5f;
 
     // Called every frame
     void Update()
     {
-        // Keep moving left
+        // Move shield to the left
         transform.position += Vector3.left * moveSpeed * Time.deltaTime;
 
-        // Remove when off screen
+        // Destroy shield when it's off screen
         if (transform.position.x < -10f)
         {
             Destroy(gameObject);
