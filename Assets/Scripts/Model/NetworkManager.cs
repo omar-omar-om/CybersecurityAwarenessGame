@@ -139,6 +139,53 @@ public class NetworkManager : MonoBehaviour
         }
     }
 
+    public IEnumerator GetSecurityQuestion(string email, Action<bool, string, string> callback)
+    {
+        string url = serverUrl + "/get-security-question";
+        WWWForm form = new WWWForm();
+        form.AddField("email", email);
+
+        using (UnityWebRequest www = UnityWebRequest.Post(url, form))
+        {
+            yield return www.SendWebRequest();
+
+            if (www.result == UnityWebRequest.Result.Success)
+            {
+                var response = JsonUtility.FromJson<SecurityQuestionResponse>(www.downloadHandler.text);
+                callback(true, response.question, response.message);
+            }
+            else
+            {
+                callback(false, "", "Failed to get security question: " + www.error);
+            }
+        }
+    }
+
+    public IEnumerator VerifyDevice(string email, string question, string answer, Action<bool, string> callback)
+    {
+        string url = serverUrl + "/verify-device";
+        WWWForm form = new WWWForm();
+        form.AddField("email", email);
+        form.AddField("question", question);
+        form.AddField("answer", answer);
+        form.AddField("deviceId", SystemInfo.deviceUniqueIdentifier);
+
+        using (UnityWebRequest www = UnityWebRequest.Post(url, form))
+        {
+            yield return www.SendWebRequest();
+
+            if (www.result == UnityWebRequest.Result.Success)
+            {
+                var response = JsonUtility.FromJson<VerificationResponse>(www.downloadHandler.text);
+                callback(response.success, response.message);
+            }
+            else
+            {
+                callback(false, "Verification failed: " + www.error);
+            }
+        }
+    }
+
     // Class for error response
     [Serializable]
     private class ErrorResponse
@@ -153,5 +200,19 @@ public class NetworkManager : MonoBehaviour
         public string message;
         public bool requiresVerification;
         public int userId;
+    }
+
+    [System.Serializable]
+    private class SecurityQuestionResponse
+    {
+        public string question;
+        public string message;
+    }
+
+    [System.Serializable]
+    private class VerificationResponse
+    {
+        public bool success;
+        public string message;
     }
 } 
