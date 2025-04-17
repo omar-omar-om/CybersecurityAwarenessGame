@@ -23,5 +23,11 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/GameWon.unity
     guid: 8cb57388dedb8dd448fc8fbf5b373d4b
+  - enabled: 1
+    path: Assets/Scenes/Login.unity
+    guid: b9d55dd0af7041a4bbcf6b13e40d3133
+  - enabled: 1
+    path: Assets/Scenes/RegisterScene.unity
+    guid: 825de8e92cab05642af47faade1b92ec
   m_configObjects:
     com.unity.adaptiveperformance.simulator.provider_settings: {fileID: 11400000, guid: 37fb01fb388a9534eb9e357bf45d9614, type: 2}
