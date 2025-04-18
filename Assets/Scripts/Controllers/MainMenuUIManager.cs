@@ -113,4 +113,20 @@ public class MainMenuUIManager : MonoBehaviour
     {
         Application.Quit();
     }
+
+    private void Logout()
+    {
+        // Instead of deleting the email, just mark as logged out
+        // We keep the email for potential offline login
+        string email = PlayerPrefs.GetString("lastLoginEmail", "");
+        if (!string.IsNullOrEmpty(email))
+        {
+            // Mark as logged out but keep the email
+            PlayerPrefs.SetInt("isLoggedIn_" + email, 0);
+            PlayerPrefs.Save();
+        }
+        
+        // Go to login scene
+        SceneManager.LoadScene("Login");
+    }
 } 

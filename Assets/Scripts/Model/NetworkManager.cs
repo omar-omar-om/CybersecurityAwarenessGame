@@ -112,29 +112,20 @@ public class NetworkManager : MonoBehaviour
             {
                 // Parse response
                 LoginResponse response = JsonUtility.FromJson<LoginResponse>(www.downloadHandler.text);
+                
+                // If login successful and doesn't require verification, set login status
+                if (!response.requiresVerification)
+                {
+                    PlayerPrefs.SetString("lastLoginEmail", email);
+                    PlayerPrefs.SetInt("isLoggedIn_" + email, 1);
+                    PlayerPrefs.Save();
+                }
+                
                 callback(true, response.message, response.requiresVerification);
             }
             else
             {
-                // Handle error response
-                string errorMessage = "Login failed: ";
-                try
-                {
-                    ErrorResponse error = JsonUtility.FromJson<ErrorResponse>(www.downloadHandler.text);
-                    if (!string.IsNullOrEmpty(error.error))
-                    {
-                        errorMessage += error.error;
-                    }
-                    else
-                    {
-                        errorMessage += www.error;
-                    }
-                }
-                catch
-                {
-                    errorMessage += www.error;
-                }
-                callback(false, errorMessage, false);
+                callback(false, "Login failed: " + www.error, false);
             }
         }
     }

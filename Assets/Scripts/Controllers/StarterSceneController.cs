@@ -19,7 +19,7 @@ public class StarterSceneController : MonoBehaviour
         Screen.orientation = ScreenOrientation.LandscapeLeft;
         
         // Start the transition coroutine
-        StartCoroutine(TransitionToMainMenu());
+        StartCoroutine(CheckLoginAndTransition());
     }
 
     void Awake()
@@ -28,7 +28,7 @@ public class StarterSceneController : MonoBehaviour
         Screen.orientation = ScreenOrientation.LandscapeLeft;
     }
 
-    IEnumerator TransitionToMainMenu()
+    private IEnumerator CheckLoginAndTransition()
     {
         // If using fade, make sure we start fully visible
         if (useFade && fadeCanvasGroup != null)
@@ -39,20 +39,64 @@ public class StarterSceneController : MonoBehaviour
         // Wait for the display time
         yield return new WaitForSeconds(displayTime);
 
-        // If we're using fade, fade to black
-        if (useFade && fadeCanvasGroup != null)
+        // Get the last used email from PlayerPrefs
+        string lastEmail = PlayerPrefs.GetString("lastLoginEmail", "");
+        
+        if (!string.IsNullOrEmpty(lastEmail))
         {
-            // Fade out
-            float elapsedTime = 0;
-            while (elapsedTime < fadeTime)
+            // Check if device was verified
+            int isVerified = PlayerPrefs.GetInt("deviceVerified_" + lastEmail, 0);
+            // Check if user is logged in
+            int isLoggedIn = PlayerPrefs.GetInt("isLoggedIn_" + lastEmail, 0);
+            
+            if (isVerified == 1 && isLoggedIn == 1)
             {
-                elapsedTime += Time.deltaTime;
-                fadeCanvasGroup.alpha = elapsedTime / fadeTime;
-                yield return null;
+                // Device is verified and user is logged in, go to MainMenu
+                if (useFade && fadeCanvasGroup != null)
+                {
+                    // Fade out
+                    float elapsedTime = 0;
+                    while (elapsedTime < fadeTime)
+                    {
+                        elapsedTime += Time.deltaTime;
+                        fadeCanvasGroup.alpha = elapsedTime / fadeTime;
+                        yield return null;
+                    }
+                }
+                SceneManager.LoadScene("MainMenu");
+            }
+            else
+            {
+                // Not verified or not logged in, go to Login
+                if (useFade && fadeCanvasGroup != null)
+                {
+                    // Fade out
+                    float elapsedTime = 0;
+                    while (elapsedTime < fadeTime)
+                    {
+                        elapsedTime += Time.deltaTime;
+                        fadeCanvasGroup.alpha = elapsedTime / fadeTime;
+                        yield return null;
+                    }
+                }
+                SceneManager.LoadScene("Login");
             }
         }
-
-        // Load the main menu scene
-        SceneManager.LoadScene(mainMenuSceneName);
+        else
+        {
+            // No saved email, go to Login
+            if (useFade && fadeCanvasGroup != null)
+            {
+                // Fade out
+                float elapsedTime = 0;
+                while (elapsedTime < fadeTime)
+                {
+                    elapsedTime += Time.deltaTime;
+                    fadeCanvasGroup.alpha = elapsedTime / fadeTime;
+                    yield return null;
+                }
+            }
+            SceneManager.LoadScene("Login");
+        }
     }
 } 

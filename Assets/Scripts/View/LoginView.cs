@@ -123,14 +123,14 @@ public class LoginView : MonoBehaviour, IPointerClickHandler
         errorMessageText.gameObject.SetActive(true);
     }
 
-    public void ShowSuccess()
+    public void ShowSuccess(string message = "Login successful!")
     {
         // Make panel semi-transparent
         MakePanelSemiTransparent();
         
         // Show success message
         errorMessageText.color = Color.green;
-        errorMessageText.text = "Login successful!";
+        errorMessageText.text = message;
         errorMessageText.gameObject.SetActive(true);
         
         // Disable login button
