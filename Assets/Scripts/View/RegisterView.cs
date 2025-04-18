@@ -7,8 +7,6 @@ using UnityEngine.EventSystems;
 
 public class RegisterView : MonoBehaviour, IPointerClickHandler
 {
- 
-    public TMP_InputField usernameInput;
     public TMP_InputField emailInput;
     public TMP_InputField passwordInput;
     public TMP_InputField confirmPasswordInput;
@@ -21,7 +19,7 @@ public class RegisterView : MonoBehaviour, IPointerClickHandler
     public TMP_Text errorMessageText;
     
     // Events for controller to subscribe to
-    public event Action<string, string, string, string, string> OnRegisterButtonClicked;
+    public event Action<string, string, string, string> OnRegisterButtonClicked;
     public event Action OnBackToLoginButtonClicked;
     
     private void Start()
@@ -69,7 +67,6 @@ public class RegisterView : MonoBehaviour, IPointerClickHandler
             
             // Invoke the event for the controller to handle
             OnRegisterButtonClicked?.Invoke(
-                usernameInput.text,
                 emailInput.text,
                 passwordInput.text,
                 securityQuestion,
@@ -92,8 +89,7 @@ public class RegisterView : MonoBehaviour, IPointerClickHandler
         errorMessageText.gameObject.SetActive(false);
         
         // Check for empty fields
-        if (string.IsNullOrEmpty(usernameInput.text) ||
-            string.IsNullOrEmpty(emailInput.text) ||
+        if (string.IsNullOrEmpty(emailInput.text) ||
             string.IsNullOrEmpty(passwordInput.text) ||
             string.IsNullOrEmpty(confirmPasswordInput.text) ||
             string.IsNullOrEmpty(securityAnswerInput.text))
@@ -124,9 +120,9 @@ public class RegisterView : MonoBehaviour, IPointerClickHandler
         }
         
         // Check password strength
-        if (passwordInput.text.Length < 8)
+        if (passwordInput.text.Length < 6)
         {
-            ShowError("Password must be at least 8 characters long");
+            ShowError("Password must be at least 6 characters long");
             return false;
         }
         

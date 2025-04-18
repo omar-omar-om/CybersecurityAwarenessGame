@@ -24,11 +24,10 @@ public class RegisterController : MonoBehaviour
         }
     }
     
-    private void HandleRegisterRequest(string username, string email, string password, string securityQuestion, string securityAnswer)
+    private void HandleRegisterRequest(string email, string password, string securityQuestion, string securityAnswer)
     {
         // Call NetworkManager directly with a single coroutine
         StartCoroutine(NetworkManager.Instance.Register(
-            username, 
             email, 
             password, 
             securityQuestion, 

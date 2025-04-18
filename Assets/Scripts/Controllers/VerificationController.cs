@@ -31,6 +31,7 @@ public class VerificationController : MonoBehaviour
     {
         // Get the email from PlayerPrefs (set during login)
         currentEmail = PlayerPrefs.GetString("lastLoginEmail", "");
+        Debug.Log("Getting security question for email: " + currentEmail);
         
         if (string.IsNullOrEmpty(currentEmail))
         {
@@ -50,16 +51,19 @@ public class VerificationController : MonoBehaviour
     {
         if (success)
         {
+            Debug.Log("Received security question: " + question);
             verificationView.SetQuestion(question);
         }
         else
         {
+            Debug.LogError("Failed to get security question: " + message);
             verificationView.ShowError(message);
         }
     }
 
     private void HandleVerifyRequest(string question, string answer)
     {
+        Debug.Log("Attempting to verify with answer: " + answer);
         StartCoroutine(VerifyAnswer(question, answer));
     }
 
@@ -74,19 +78,35 @@ public class VerificationController : MonoBehaviour
 
     private void OnVerificationResponse(bool success, string message)
     {
+        Debug.Log("Verification response: " + (success ? "Success" : "Failed") + " - " + message);
+        
         if (success)
         {
             // Save verification status
+            PlayerPrefs.SetString("deviceIdentifier", SystemInfo.deviceUniqueIdentifier);
             PlayerPrefs.SetInt("deviceVerified_" + currentEmail, 1);
+            // Mark user as logged in
+            PlayerPrefs.SetInt("isLoggedIn", 1);
             PlayerPrefs.Save();
 
-            // Go to MainMenu
-            SceneManager.LoadScene("MainMenu");
+            // Show success message
+            verificationView.ShowSuccess();
+            // Wait for a moment before redirecting
+            StartCoroutine(DelayedRedirect());
         }
         else
         {
             verificationView.ShowError(message);
         }
+    }
+
+    private IEnumerator DelayedRedirect()
+    {
+        // Wait for 2 seconds
+        yield return new WaitForSeconds(2f);
+        
+        // Go to MainMenu
+        SceneManager.LoadScene("MainMenu");
     }
 
     private void HandleBackToLogin()

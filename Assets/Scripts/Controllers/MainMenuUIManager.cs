@@ -9,10 +9,12 @@ public class MainMenuUIManager : MonoBehaviour
     // drag these buttons in from unity
     [SerializeField] private Button level1Button;
     [SerializeField] private Button level2Button;
-    [SerializeField] private Button settingsButton;
+    [SerializeField] private Button logoutButton;
     [SerializeField] private Button playButton;
     
     private string selectedScene = "";
+    private bool logoutSelected = false;
+    
     // these control how big/small buttons get when selected
     private Vector3 normalScale = Vector3.one;
     private Vector3 selectedScale = new Vector3(1.3f, 1.3f, 1.3f);  // makes button 30% bigger
@@ -30,25 +32,46 @@ public class MainMenuUIManager : MonoBehaviour
         {
             playButton.interactable = false;
         }
+        
+        // Add button listeners
+        if (level1Button != null)
+        {
+            level1Button.onClick.AddListener(SelectLevel1);
+        }
+        if (level2Button != null)
+        {
+            level2Button.onClick.AddListener(SelectLevel2);
+        }
+        if (logoutButton != null)
+        {
+            logoutButton.onClick.AddListener(SelectLogout);
+        }
+        if (playButton != null)
+        {
+            playButton.onClick.AddListener(PlaySelected);
+        }
     }
 
     // these methods handle when player clicks level buttons
     public void SelectLevel1()
     {
         selectedScene = "Level1";
+        logoutSelected = false;
         UpdateButtonScales(level1Button);
     }
 
     public void SelectLevel2()
     {
         selectedScene = "Level2";
+        logoutSelected = false;
         UpdateButtonScales(level2Button);
     }
-
-    public void SelectSettings()
+    
+    public void SelectLogout()
     {
-        selectedScene = "Settings";
-        UpdateButtonScales(settingsButton);
+        selectedScene = "";
+        logoutSelected = true;
+        UpdateButtonScales(logoutButton);
     }
 
     // handles the button scaling animation when selecting levels
@@ -63,9 +86,9 @@ public class MainMenuUIManager : MonoBehaviour
         {
             level2Button.transform.localScale = normalScale;
         }
-        if (settingsButton != null) 
+        if (logoutButton != null) 
         {
-            settingsButton.transform.localScale = normalScale;
+            logoutButton.transform.localScale = normalScale;
         }
 
         // then make selected button bigger and others smaller
@@ -81,9 +104,9 @@ public class MainMenuUIManager : MonoBehaviour
             {
                 level2Button.transform.localScale = unselectedScale;
             }
-            if (settingsButton != null && settingsButton != selectedButton) 
+            if (logoutButton != null && logoutButton != selectedButton) 
             {
-                settingsButton.transform.localScale = unselectedScale;
+                logoutButton.transform.localScale = unselectedScale;
             }
         }
 
@@ -97,8 +120,14 @@ public class MainMenuUIManager : MonoBehaviour
     // loads the selected level when play button is clicked
     public void PlaySelected()
     {
-        if (!string.IsNullOrEmpty(selectedScene))
+        if (logoutSelected)
         {
+            // Handle logout if logout was selected
+            Logout();
+        }
+        else if (!string.IsNullOrEmpty(selectedScene))
+        {
+            // Load the selected level
             StartCoroutine(LoadLevelRoutine(selectedScene));
         }
     }
@@ -109,8 +138,20 @@ public class MainMenuUIManager : MonoBehaviour
         SceneManager.LoadScene(sceneName);
     }
 
-    public void QuitGame()
+    private void Logout()
     {
-        Application.Quit();
+        // Get the email
+        string email = PlayerPrefs.GetString("lastLoginEmail", "");
+        
+        if (!string.IsNullOrEmpty(email))
+        {
+            // Clear login status but keep device verification for offline login
+            PlayerPrefs.SetInt("isLoggedIn", 0);
+            // Keep the email and device verification status for offline login
+            PlayerPrefs.Save();
+        }
+        
+        // Go to login scene
+        SceneManager.LoadScene("Login");
     }
 } 
