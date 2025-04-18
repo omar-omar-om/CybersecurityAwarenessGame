@@ -39,52 +39,37 @@ public class StarterSceneController : MonoBehaviour
         // Wait for the display time
         yield return new WaitForSeconds(displayTime);
 
+        // Check if the user is logged in (global flag)
+        int isLoggedIn = PlayerPrefs.GetInt("isLoggedIn", 0);
+        
         // Get the last used email from PlayerPrefs
         string lastEmail = PlayerPrefs.GetString("lastLoginEmail", "");
         
-        if (!string.IsNullOrEmpty(lastEmail))
+        Debug.Log($"Startup check - isLoggedIn: {isLoggedIn}, lastEmail: {lastEmail}");
+        
+        if (isLoggedIn == 1 && !string.IsNullOrEmpty(lastEmail))
         {
-            // Check if device was verified
-            int isVerified = PlayerPrefs.GetInt("deviceVerified_" + lastEmail, 0);
-            // Check if user is logged in
-            int isLoggedIn = PlayerPrefs.GetInt("isLoggedIn_" + lastEmail, 0);
+            // User is logged in, go to MainMenu
+            Debug.Log("User is logged in - going to MainMenu");
             
-            if (isVerified == 1 && isLoggedIn == 1)
+            if (useFade && fadeCanvasGroup != null)
             {
-                // Device is verified and user is logged in, go to MainMenu
-                if (useFade && fadeCanvasGroup != null)
+                // Fade out
+                float elapsedTime = 0;
+                while (elapsedTime < fadeTime)
                 {
-                    // Fade out
-                    float elapsedTime = 0;
-                    while (elapsedTime < fadeTime)
-                    {
-                        elapsedTime += Time.deltaTime;
-                        fadeCanvasGroup.alpha = elapsedTime / fadeTime;
-                        yield return null;
-                    }
+                    elapsedTime += Time.deltaTime;
+                    fadeCanvasGroup.alpha = elapsedTime / fadeTime;
+                    yield return null;
                 }
-                SceneManager.LoadScene("MainMenu");
             }
-            else
-            {
-                // Not verified or not logged in, go to Login
-                if (useFade && fadeCanvasGroup != null)
-                {
-                    // Fade out
-                    float elapsedTime = 0;
-                    while (elapsedTime < fadeTime)
-                    {
-                        elapsedTime += Time.deltaTime;
-                        fadeCanvasGroup.alpha = elapsedTime / fadeTime;
-                        yield return null;
-                    }
-                }
-                SceneManager.LoadScene("Login");
-            }
+            SceneManager.LoadScene("MainMenu");
         }
         else
         {
-            // No saved email, go to Login
+            // Not logged in, go to Login
+            Debug.Log("User is not logged in - going to Login scene");
+            
             if (useFade && fadeCanvasGroup != null)
             {
                 // Fade out
