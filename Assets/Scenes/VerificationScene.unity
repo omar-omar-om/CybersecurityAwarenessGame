@@ -2471,8 +2471,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   securityQuestionDropdown: {fileID: 309520731}
   answerInput: {fileID: 368157356}
-  verifyButton: {fileID: 1491907595}
-  backToLoginButton: {fileID: 846222694}
+  verifyButton: {fileID: 846222694}
+  backToLoginButton: {fileID: 1491907595}
   errorMessageText: {fileID: 2060653863}
 --- !u!1 &1749324229
 GameObject:
