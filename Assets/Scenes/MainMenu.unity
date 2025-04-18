@@ -239,7 +239,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: f3a2e7eb693d2fd4bb1f81ebf26a94bc, type: 3}
+  m_Sprite: {fileID: 21300000, guid: f416287f847134d4f931aae6b9be3643, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -576,7 +576,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: 3b796ce60cb21f14da8b9e331f342715, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 92745fa2ce4291d4184717f686f9a157, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -766,8 +766,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 341.55997, y: -182.99}
-  m_SizeDelta: {x: 405.8753, y: 94.4364}
+  m_AnchoredPosition: {x: 341.55997, y: -185.79}
+  m_SizeDelta: {x: 342.5823, y: 94.4364}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &859502609
 MonoBehaviour:
@@ -845,7 +845,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: 8223e4f3c1fac5a43a21a9cb79f6bc7f, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 356c0bc306ae14642b64723c9eb40ff0, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -1058,7 +1058,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   level1Button: {fileID: 517972430}
   level2Button: {fileID: 91858083}
-  settingsButton: {fileID: 859502609}
+  logoutButton: {fileID: 859502609}
   playButton: {fileID: 1530441322}
 --- !u!1 &1106708311
 GameObject:
