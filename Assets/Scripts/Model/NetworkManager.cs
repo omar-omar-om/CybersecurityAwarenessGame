@@ -1,142 +1,181 @@
 using System;
 using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Networking;
 using System.Text;
 
 public class NetworkManager : MonoBehaviour
 {
-    // Singleton instance
+    // Singleton instance of NetworkManager
     public static NetworkManager Instance { get; private set; }
 
-    // Server base URL
+    // Base URL 
     private string serverUrl = "http://localhost:3000";
+    
+    // Server connection status
+    private bool _isServerReachable = false;
+    public bool IsServerReachable => _isServerReachable;
 
-    // Awake is called when the script instance is being loaded
     private void Awake()
     {
-        // Singleton pattern implementation
+        // Ensure only one instance exists
         if (Instance == null)
         {
             Instance = this;
-            DontDestroyOnLoad(gameObject);
+            DontDestroyOnLoad(gameObject); 
         }
         else
         {
-            Destroy(gameObject); 
+            Destroy(gameObject);
         }
     }
 
-    // Register user
-    public IEnumerator Register(string username, string email, string password, string securityQuestion, string securityAnswer, Action<bool, string> callback)
+    private void Start()
     {
-        // Create a dictionary with the registration data
-        var registrationData = new Dictionary<string, string>
+        // check connection to the backend on startup
+        StartCoroutine(TestServerConnection());
+    }
+
+    // Serializable request/response structures
+
+    [Serializable] private class RegistrationRequest
+    {
+        public string email, password, securityQuestion, securityAnswer;
+    }
+
+    [Serializable] private class LoginRequest
+    {
+        public string email, password, deviceIdentifier;
+    }
+
+    [Serializable] private class VerifyDeviceRequest
+    {
+        public string userId, deviceIdentifier, securityAnswer;
+    }
+
+    [Serializable] private class ErrorResponse
+    {
+        public string error;
+    }
+
+    [Serializable] private class LoginResponse
+    {
+        public string message;
+        public bool requiresVerification;
+        public int userId;
+    }
+
+    [Serializable] private class SecurityQuestionResponse
+    {
+        public string question, message;
+    }
+
+    [Serializable] private class VerificationResponse
+    {
+        public bool success;
+        public string message;
+    }
+
+    // === Public API Methods
+
+    // Register a new user
+    public IEnumerator Register(string email, string password, string securityQuestion, string securityAnswer, Action<bool, string> callback)
+    {
+        // Check server connection first
+        yield return TestServerConnection();
+        
+        if (!_isServerReachable)
         {
-            { "username", username },
-            { "email", email },
-            { "password", password },
-            { "securityQuestion", securityQuestion },
-            { "securityAnswer", securityAnswer }
+            callback(false, "Server not reachable. Please check your internet connection.");
+            yield break;
+        }
+        
+        var request = new RegistrationRequest
+        {
+            email = email,
+            password = password,
+            securityQuestion = securityQuestion,
+            securityAnswer = securityAnswer
         };
 
-        // Convert dictionary to JSON string
-        string jsonData = JsonUtility.ToJson(registrationData);
-
-        // Send request to server
-        using (UnityWebRequest www = UnityWebRequest.PostWwwForm(serverUrl + "/api/register", ""))
+        yield return SendPostRequest("/api/register", request, (success, responseText) =>
         {
-            byte[] bodyRaw = Encoding.UTF8.GetBytes(jsonData);
-            www.uploadHandler = new UploadHandlerRaw(bodyRaw);
-            www.downloadHandler = new DownloadHandlerBuffer();
-            www.SetRequestHeader("Content-Type", "application/json");
-
-            yield return www.SendWebRequest();
-
-            if (www.result == UnityWebRequest.Result.Success)
-            {
+            if (success)
                 callback(true, "Registration successful!");
+            else
+                callback(false, ParseErrorMessage(responseText));
+        });
+    }
+
+    // Log in a user
+    public IEnumerator Login(string email, string password, Action<bool, string, bool> callback)
+    {
+        // Check server connection first
+        yield return TestServerConnection();
+        
+        // If server is not reachable, try offline login
+        if (!_isServerReachable)
+        {
+            bool offlineLoginSuccess = TryOfflineLogin(email);
+            if (offlineLoginSuccess)
+            {
+                callback(true, "Offline login successful", false);
             }
             else
             {
-                // Handle error response
-                string errorMessage = "Registration failed: ";
-                try
-                {
-                    // Try to get error message from JSON response
-                    ErrorResponse error = JsonUtility.FromJson<ErrorResponse>(www.downloadHandler.text);
-                    if (!string.IsNullOrEmpty(error.error))
-                    {
-                        errorMessage += error.error;
-                    }
-                    else
-                    {
-                        errorMessage += www.error;
-                    }
-                }
-                catch
-                {
-                    errorMessage += www.error;
-                }
-                callback(false, errorMessage);
+                callback(false, "Server not reachable and this device is not verified for offline login", false);
             }
+            yield break;
         }
-    }
-
-    // Login user
-    public IEnumerator Login(string email, string password, Action<bool, string, bool> callback)
-    {
-        // Create login data
-        var loginData = new Dictionary<string, string>
+        
+        var request = new LoginRequest
         {
-            { "email", email },
-            { "password", password },
-            { "deviceIdentifier", SystemInfo.deviceUniqueIdentifier }
+            email = email,
+            password = password,
+            deviceIdentifier = SystemInfo.deviceUniqueIdentifier
         };
 
-        // Convert to JSON
-        string jsonData = JsonUtility.ToJson(loginData);
-
-        // Send request to server
-        using (UnityWebRequest www = UnityWebRequest.PostWwwForm(serverUrl + "/api/login", ""))
+        yield return SendPostRequest("/api/login", request, (success, responseText) =>
         {
-            byte[] bodyRaw = Encoding.UTF8.GetBytes(jsonData);
-            www.uploadHandler = new UploadHandlerRaw(bodyRaw);
-            www.downloadHandler = new DownloadHandlerBuffer();
-            www.SetRequestHeader("Content-Type", "application/json");
-
-            yield return www.SendWebRequest();
-
-            if (www.result == UnityWebRequest.Result.Success)
+            if (success)
             {
-                // Parse response
-                LoginResponse response = JsonUtility.FromJson<LoginResponse>(www.downloadHandler.text);
-                
-                // If login successful and doesn't require verification, set login status
-                if (!response.requiresVerification)
-                {
-                    PlayerPrefs.SetString("lastLoginEmail", email);
-                    PlayerPrefs.SetInt("isLoggedIn_" + email, 1);
-                    PlayerPrefs.Save();
-                }
-                
+                var response = JsonUtility.FromJson<LoginResponse>(responseText);
                 callback(true, response.message, response.requiresVerification);
             }
             else
             {
-                callback(false, "Login failed: " + www.error, false);
+                callback(false, ParseErrorMessage(responseText), false);
             }
-        }
+        });
+    }
+    
+    // Try to login offline based on previously verified device
+    private bool TryOfflineLogin(string email)
+    {
+        if (string.IsNullOrEmpty(email))
+            return false;
+            
+        // Check if this device has been verified for this email
+        int isVerified = PlayerPrefs.GetInt("deviceVerified_" + email, 0);
+        string savedDeviceId = PlayerPrefs.GetString("deviceIdentifier", "");
+        
+        // If device is verified and it's the same device that was previously used
+        return isVerified == 1 && savedDeviceId == SystemInfo.deviceUniqueIdentifier;
     }
 
+    // Fetch a user's security question by email
     public IEnumerator GetSecurityQuestion(string email, Action<bool, string, string> callback)
     {
-        string url = serverUrl + "/get-security-question";
-        WWWForm form = new WWWForm();
-        form.AddField("email", email);
-
-        using (UnityWebRequest www = UnityWebRequest.Post(url, form))
+        // Check server connection first
+        yield return TestServerConnection();
+        
+        if (!_isServerReachable)
+        {
+            callback(false, "", "Server not reachable. Please check your internet connection.");
+            yield break;
+        }
+        
+        using (UnityWebRequest www = UnityWebRequest.Get($"{serverUrl}/api/security-question/{email}"))
         {
             yield return www.SendWebRequest();
 
@@ -147,63 +186,114 @@ public class NetworkManager : MonoBehaviour
             }
             else
             {
-                callback(false, "", "Failed to get security question: " + www.error);
+                callback(false, "", "Failed to get security question.");
             }
         }
     }
 
+    // Verify a device using a security answer
     public IEnumerator VerifyDevice(string email, string question, string answer, Action<bool, string> callback)
     {
-        string url = serverUrl + "/verify-device";
-        WWWForm form = new WWWForm();
-        form.AddField("email", email);
-        form.AddField("question", question);
-        form.AddField("answer", answer);
-        form.AddField("deviceId", SystemInfo.deviceUniqueIdentifier);
-
-        using (UnityWebRequest www = UnityWebRequest.Post(url, form))
+        // Check server connection first
+        yield return TestServerConnection();
+        
+        if (!_isServerReachable)
         {
-            yield return www.SendWebRequest();
+            Debug.LogError("Server not reachable during verify device");
+            callback(false, "Server not reachable. Please check your internet connection.");
+            yield break;
+        }
+        
+        // Log request details for debugging
+        Debug.Log($"Verifying device with email: '{email}', answer: '{answer}'");
+        Debug.Log($"Device ID: {SystemInfo.deviceUniqueIdentifier}");
+        
+        var request = new VerifyDeviceRequest
+        {
+            userId = email,  // We're correctly sending email as userId
+            deviceIdentifier = SystemInfo.deviceUniqueIdentifier,
+            securityAnswer = answer.Trim() // Trim whitespace from answer
+        };
+        
+        Debug.Log($"Sending verification request to: {serverUrl}/api/verify-device");
 
-            if (www.result == UnityWebRequest.Result.Success)
+        yield return SendPostRequest("/api/verify-device", request, (success, responseText) =>
+        {
+            Debug.Log($"Verify device response - Success: {success}, Response: {responseText}");
+            
+            if (success)
             {
-                var response = JsonUtility.FromJson<VerificationResponse>(www.downloadHandler.text);
-                callback(response.success, response.message);
+                try {
+                    var response = JsonUtility.FromJson<VerificationResponse>(responseText);
+                    Debug.Log($"Parsed response - success: {response.success}, message: {response.message}");
+                    callback(response.success, response.message);
+                }
+                catch (System.Exception ex) {
+                    Debug.LogError($"Error parsing verification response: {ex.Message}");
+                    Debug.LogError($"Full response: {responseText}");
+                    callback(false, "Error processing verification response. Try again.");
+                }
             }
             else
             {
-                callback(false, "Verification failed: " + www.error);
+                callback(false, $"Verification failed. Server response: {responseText}");
             }
+        });
+    }
+
+    
+    public IEnumerator TestServerConnection()
+    {
+        using (UnityWebRequest www = UnityWebRequest.Get(serverUrl))
+        {
+            // Set short timeout
+            www.timeout = 5;
+            yield return www.SendWebRequest();
+
+            _isServerReachable = (www.result == UnityWebRequest.Result.Success);
+            
+            if (_isServerReachable)
+                Debug.Log(" Connected to server.");
+            else
+                Debug.LogWarning(" Server not reachable. Check URL or server status.");
         }
     }
 
-    // Class for error response
-    [Serializable]
-    private class ErrorResponse
+    // === Helper Methods
+
+    // Sends a POST request with JSON data to the given endpoint
+    private IEnumerator SendPostRequest(string endpoint, object payload, Action<bool, string> callback)
     {
-        public string error;
+        string jsonData = JsonUtility.ToJson(payload);
+
+        using (UnityWebRequest www = new UnityWebRequest(serverUrl + endpoint, "POST"))
+        {
+            www.uploadHandler = new UploadHandlerRaw(Encoding.UTF8.GetBytes(jsonData));
+            www.downloadHandler = new DownloadHandlerBuffer();
+            www.SetRequestHeader("Content-Type", "application/json");
+
+            yield return www.SendWebRequest();
+
+            bool success = www.result == UnityWebRequest.Result.Success;
+            callback(success, www.downloadHandler.text);
+        }
     }
 
-    // Class for login response
-    [Serializable]
-    private class LoginResponse
+    // Parses a JSON error response and returns a user-friendly message
+    private string ParseErrorMessage(string json)
     {
-        public string message;
-        public bool requiresVerification;
-        public int userId;
+        try
+        {
+            var error = JsonUtility.FromJson<ErrorResponse>(json);
+            if (string.IsNullOrEmpty(error.error)) return "An unknown error occurred.";
+            if (error.error.Contains("already exists")) return "Email already registered.";
+            if (error.error.Contains("Invalid email or password")) return "Incorrect email or password.";
+            if (error.error.Contains("Database error")) return "Server error. Try again later.";
+            return error.error;
+        }
+        catch
+        {
+            return "Failed to parse error response.";
+        }
     }
-
-    [System.Serializable]
-    private class SecurityQuestionResponse
-    {
-        public string question;
-        public string message;
-    }
-
-    [System.Serializable]
-    private class VerificationResponse
-    {
-        public bool success;
-        public string message;
-    }
-} 
+}

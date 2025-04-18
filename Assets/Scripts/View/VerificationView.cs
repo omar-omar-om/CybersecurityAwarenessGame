@@ -60,8 +60,21 @@ public class VerificationView : MonoBehaviour, IPointerClickHandler
 
     public void ShowError(string message)
     {
+        errorMessageText.color = Color.red; // Error messages are red
         errorMessageText.text = message;
         errorMessageText.gameObject.SetActive(true);
+    }
+    
+    public void ShowSuccess()
+    {
+        // Show success message with green color
+        errorMessageText.color = Color.green;
+        errorMessageText.text = "Verification successful!";
+        errorMessageText.gameObject.SetActive(true);
+        
+        // Disable verify button to prevent multiple submissions
+        verifyButton.interactable = false;
+        backToLoginButton.interactable = false;
     }
 
     public void HideError()

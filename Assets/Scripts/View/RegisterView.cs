@@ -7,8 +7,7 @@ using UnityEngine.EventSystems;
 
 public class RegisterView : MonoBehaviour, IPointerClickHandler
 {
- 
-    public TMP_InputField usernameInput;
+    // Remove username input field
     public TMP_InputField emailInput;
     public TMP_InputField passwordInput;
     public TMP_InputField confirmPasswordInput;
@@ -20,8 +19,8 @@ public class RegisterView : MonoBehaviour, IPointerClickHandler
     
     public TMP_Text errorMessageText;
     
-    // Events for controller to subscribe to
-    public event Action<string, string, string, string, string> OnRegisterButtonClicked;
+    // Update event to remove username parameter
+    public event Action<string, string, string, string> OnRegisterButtonClicked;
     public event Action OnBackToLoginButtonClicked;
     
     private void Start()
@@ -67,9 +66,8 @@ public class RegisterView : MonoBehaviour, IPointerClickHandler
             
             string securityQuestion = securityQuestionDropdown.options[securityQuestionDropdown.value].text;
             
-            // Invoke the event for the controller to handle
+            // Remove username from the event invocation
             OnRegisterButtonClicked?.Invoke(
-                usernameInput.text,
                 emailInput.text,
                 passwordInput.text,
                 securityQuestion,
@@ -91,9 +89,8 @@ public class RegisterView : MonoBehaviour, IPointerClickHandler
         // Reset error message
         errorMessageText.gameObject.SetActive(false);
         
-        // Check for empty fields
-        if (string.IsNullOrEmpty(usernameInput.text) ||
-            string.IsNullOrEmpty(emailInput.text) ||
+        // Check for empty fields - remove username check
+        if (string.IsNullOrEmpty(emailInput.text) ||
             string.IsNullOrEmpty(passwordInput.text) ||
             string.IsNullOrEmpty(confirmPasswordInput.text) ||
             string.IsNullOrEmpty(securityAnswerInput.text))
@@ -204,8 +201,6 @@ public class RegisterView : MonoBehaviour, IPointerClickHandler
         
         // Disable register button
         registerButton.interactable = false;
-        
-        // For success, don't dismiss on click since we're redirecting
     }
     
     public void HideError()

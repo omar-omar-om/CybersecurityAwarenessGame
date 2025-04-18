@@ -54,10 +54,9 @@ public class LoginView : MonoBehaviour, IPointerClickHandler
         errorMessageText.gameObject.SetActive(false);
         
         // Check for empty fields
-        if (string.IsNullOrEmpty(emailInput.text) ||
-            string.IsNullOrEmpty(passwordInput.text))
+        if (string.IsNullOrEmpty(emailInput.text))
         {
-            ShowError("All fields are required");
+            ShowError("Please enter your email address");
             return false;
         }
         
@@ -65,6 +64,12 @@ public class LoginView : MonoBehaviour, IPointerClickHandler
         if (!IsValidEmail(emailInput.text))
         {
             ShowError("Please enter a valid email address");
+            return false;
+        }
+        
+        if (string.IsNullOrEmpty(passwordInput.text))
+        {
+            ShowError("Please enter your password");
             return false;
         }
         
@@ -119,18 +124,30 @@ public class LoginView : MonoBehaviour, IPointerClickHandler
         MakePanelSemiTransparent();
         
         // Show error message
+        errorMessageText.color = Color.red; // Ensure color is red for errors
         errorMessageText.text = message;
         errorMessageText.gameObject.SetActive(true);
     }
 
-    public void ShowSuccess(string message = "Login successful!")
+    public void ShowMessage(string message)
+    {
+        // Make panel semi-transparent
+        MakePanelSemiTransparent();
+        
+        // Show informational message
+        errorMessageText.color = Color.white; // Neutral color for info
+        errorMessageText.text = message;
+        errorMessageText.gameObject.SetActive(true);
+    }
+
+    public void ShowSuccess()
     {
         // Make panel semi-transparent
         MakePanelSemiTransparent();
         
         // Show success message
         errorMessageText.color = Color.green;
-        errorMessageText.text = message;
+        errorMessageText.text = "Login successful!";
         errorMessageText.gameObject.SetActive(true);
         
         // Disable login button
@@ -144,5 +161,27 @@ public class LoginView : MonoBehaviour, IPointerClickHandler
         
         // Hide error message
         errorMessageText.gameObject.SetActive(false);
+    }
+    
+    public void ClearStatus()
+    {
+        // Hide any message
+        errorMessageText.gameObject.SetActive(false);
+        
+        // Make panel transparent
+        MakePanelTransparent();
+        
+        // Ensure buttons are enabled
+        loginButton.interactable = true;
+    }
+    
+    public string GetEmail()
+    {
+        return emailInput.text;
+    }
+    
+    public void SetEmail(string email)
+    {
+        emailInput.text = email;
     }
 } 

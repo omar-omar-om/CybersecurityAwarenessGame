@@ -9,10 +9,11 @@ public class MainMenuUIManager : MonoBehaviour
     // drag these buttons in from unity
     [SerializeField] private Button level1Button;
     [SerializeField] private Button level2Button;
-    [SerializeField] private Button settingsButton;
+    [SerializeField] private Button logoutButton;
     [SerializeField] private Button playButton;
     
     private string selectedScene = "";
+    
     // these control how big/small buttons get when selected
     private Vector3 normalScale = Vector3.one;
     private Vector3 selectedScale = new Vector3(1.3f, 1.3f, 1.3f);  // makes button 30% bigger
@@ -30,6 +31,25 @@ public class MainMenuUIManager : MonoBehaviour
         {
             playButton.interactable = false;
         }
+        
+        // Add button listeners
+        if (level1Button != null)
+        {
+            level1Button.onClick.AddListener(SelectLevel1);
+        }
+        if (level2Button != null)
+        {
+            level2Button.onClick.AddListener(SelectLevel2);
+        }
+        if (logoutButton != null)
+        {
+            // Make logout button directly trigger logout
+            logoutButton.onClick.AddListener(Logout);
+        }
+        if (playButton != null)
+        {
+            playButton.onClick.AddListener(PlaySelected);
+        }
     }
 
     // these methods handle when player clicks level buttons
@@ -45,12 +65,6 @@ public class MainMenuUIManager : MonoBehaviour
         UpdateButtonScales(level2Button);
     }
 
-    public void SelectSettings()
-    {
-        selectedScene = "Settings";
-        UpdateButtonScales(settingsButton);
-    }
-
     // handles the button scaling animation when selecting levels
     private void UpdateButtonScales(Button selectedButton)
     {
@@ -63,9 +77,9 @@ public class MainMenuUIManager : MonoBehaviour
         {
             level2Button.transform.localScale = normalScale;
         }
-        if (settingsButton != null) 
+        if (logoutButton != null) 
         {
-            settingsButton.transform.localScale = normalScale;
+            logoutButton.transform.localScale = normalScale;
         }
 
         // then make selected button bigger and others smaller
@@ -81,9 +95,9 @@ public class MainMenuUIManager : MonoBehaviour
             {
                 level2Button.transform.localScale = unselectedScale;
             }
-            if (settingsButton != null && settingsButton != selectedButton) 
+            if (logoutButton != null && logoutButton != selectedButton) 
             {
-                settingsButton.transform.localScale = unselectedScale;
+                logoutButton.transform.localScale = unselectedScale;
             }
         }
 
@@ -99,6 +113,7 @@ public class MainMenuUIManager : MonoBehaviour
     {
         if (!string.IsNullOrEmpty(selectedScene))
         {
+            // Load the selected level
             StartCoroutine(LoadLevelRoutine(selectedScene));
         }
     }
@@ -109,20 +124,18 @@ public class MainMenuUIManager : MonoBehaviour
         SceneManager.LoadScene(sceneName);
     }
 
-    public void QuitGame()
-    {
-        Application.Quit();
-    }
-
     private void Logout()
     {
-        // Instead of deleting the email, just mark as logged out
-        // We keep the email for potential offline login
+        Debug.Log("Logging out user");
+        
+        // Get the email
         string email = PlayerPrefs.GetString("lastLoginEmail", "");
+        
         if (!string.IsNullOrEmpty(email))
         {
-            // Mark as logged out but keep the email
-            PlayerPrefs.SetInt("isLoggedIn_" + email, 0);
+            // Clear login status but keep device verification for offline login
+            PlayerPrefs.SetInt("isLoggedIn", 0);
+            // Keep the email and device verification status for offline login
             PlayerPrefs.Save();
         }
         
