@@ -10,7 +10,7 @@ public class NetworkManager : MonoBehaviour
     public static NetworkManager Instance { get; private set; }
 
     // Base URL 
-    private string serverUrl = "http://localhost:3000";
+    private string serverUrl = "https://game-server-production-dbdf.up.railway.app";
     
     // Server connection status
     private bool _isServerReachable = false;
@@ -223,7 +223,7 @@ public class NetworkManager : MonoBehaviour
         
         var request = new VerifyDeviceRequest
         {
-            userEmail = email,  // We're correctly sending email as userEmail
+            userEmail = email,  // correctly sending email as userEmail
             deviceIdentifier = SystemInfo.deviceUniqueIdentifier,
             securityAnswer = answer.Trim() // Trim whitespace from answer
         };
