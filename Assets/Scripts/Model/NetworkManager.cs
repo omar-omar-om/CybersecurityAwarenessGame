@@ -50,7 +50,13 @@ public class NetworkManager : MonoBehaviour
 
     [Serializable] private class VerifyDeviceRequest
     {
-        public string userId, deviceIdentifier, securityAnswer;
+        public string userEmail, deviceIdentifier, securityAnswer;
+    }
+    
+    [Serializable] private class GameProgressRequest
+    {
+        public string userEmail;
+        public string bestScores;
     }
 
     [Serializable] private class ErrorResponse
@@ -75,6 +81,12 @@ public class NetworkManager : MonoBehaviour
         public bool success;
         public string message;
     }
+    
+    [Serializable] private class GameProgressResponse
+    {
+        public string message;
+        public string bestScores;
+    }
 
     // === Public API Methods
 
@@ -84,7 +96,7 @@ public class NetworkManager : MonoBehaviour
         // Check server connection first
         yield return TestServerConnection();
         
-        if (!_isServerReachable)
+        if (_isServerReachable == false)
         {
             callback(false, "Server not reachable. Please check your internet connection.");
             yield break;
@@ -101,9 +113,13 @@ public class NetworkManager : MonoBehaviour
         yield return SendPostRequest("/api/register", request, (success, responseText) =>
         {
             if (success)
+            {
                 callback(true, "Registration successful!");
+            }
             else
+            {
                 callback(false, ParseErrorMessage(responseText));
+            }
         });
     }
 
@@ -114,10 +130,10 @@ public class NetworkManager : MonoBehaviour
         yield return TestServerConnection();
         
         // If server is not reachable, try offline login
-        if (!_isServerReachable)
+        if (_isServerReachable == false)
         {
             bool offlineLoginSuccess = TryOfflineLogin(email);
-            if (offlineLoginSuccess)
+            if (offlineLoginSuccess == true)
             {
                 callback(true, "Offline login successful", false);
             }
@@ -152,8 +168,10 @@ public class NetworkManager : MonoBehaviour
     // Try to login offline based on previously verified device
     private bool TryOfflineLogin(string email)
     {
-        if (string.IsNullOrEmpty(email))
+        if (string.IsNullOrEmpty(email) == true)
+        {
             return false;
+        }
             
         // Check if this device has been verified for this email
         int isVerified = PlayerPrefs.GetInt("deviceVerified_" + email, 0);
@@ -169,7 +187,7 @@ public class NetworkManager : MonoBehaviour
         // Check server connection first
         yield return TestServerConnection();
         
-        if (!_isServerReachable)
+        if (_isServerReachable == false)
         {
             callback(false, "", "Server not reachable. Please check your internet connection.");
             yield break;
@@ -197,40 +215,28 @@ public class NetworkManager : MonoBehaviour
         // Check server connection first
         yield return TestServerConnection();
         
-        if (!_isServerReachable)
+        if (_isServerReachable == false)
         {
-            Debug.LogError("Server not reachable during verify device");
             callback(false, "Server not reachable. Please check your internet connection.");
             yield break;
         }
         
-        // Log request details for debugging
-        Debug.Log($"Verifying device with email: '{email}', answer: '{answer}'");
-        Debug.Log($"Device ID: {SystemInfo.deviceUniqueIdentifier}");
-        
         var request = new VerifyDeviceRequest
         {
-            userId = email,  // We're correctly sending email as userId
+            userEmail = email,  // We're correctly sending email as userEmail
             deviceIdentifier = SystemInfo.deviceUniqueIdentifier,
             securityAnswer = answer.Trim() // Trim whitespace from answer
         };
-        
-        Debug.Log($"Sending verification request to: {serverUrl}/api/verify-device");
 
         yield return SendPostRequest("/api/verify-device", request, (success, responseText) =>
         {
-            Debug.Log($"Verify device response - Success: {success}, Response: {responseText}");
-            
             if (success)
             {
                 try {
                     var response = JsonUtility.FromJson<VerificationResponse>(responseText);
-                    Debug.Log($"Parsed response - success: {response.success}, message: {response.message}");
                     callback(response.success, response.message);
                 }
-                catch (System.Exception ex) {
-                    Debug.LogError($"Error parsing verification response: {ex.Message}");
-                    Debug.LogError($"Full response: {responseText}");
+                catch (System.Exception) {
                     callback(false, "Error processing verification response. Try again.");
                 }
             }
@@ -240,8 +246,133 @@ public class NetworkManager : MonoBehaviour
             }
         });
     }
-
     
+    // Fetch user's game progress (best scores only)
+    public IEnumerator GetGameProgress(string userEmail, Action<bool, string> callback)
+    {
+        // Check server connection first
+        yield return TestServerConnection();
+        
+        if (_isServerReachable == false)
+        {
+            callback(false, "{}");
+            yield break;
+        }
+        
+        using (UnityWebRequest www = UnityWebRequest.Get($"{serverUrl}/api/progress/{userEmail}"))
+        {
+            yield return www.SendWebRequest();
+
+            if (www.result == UnityWebRequest.Result.Success)
+            {
+                string responseText = www.downloadHandler.text;
+                try 
+                {
+                    // Parse the response
+                    GameProgressResponse response = JsonUtility.FromJson<GameProgressResponse>(responseText);
+                    callback(true, response.bestScores);
+                }
+                catch (Exception)
+                {
+                    // If parsing fails, try to extract manually (as a fallback)
+                    string bestScores = ExtractField(responseText, "bestScores");
+                    
+                    if (!string.IsNullOrEmpty(bestScores))
+                    {
+                        callback(true, bestScores);
+                    }
+                    else
+                    {
+                        callback(false, "{}");
+                    }
+                }
+            }
+            else
+            {
+                callback(false, "{}");
+            }
+        }
+    }
+    
+    // Helper method to extract field from JSON
+    private string ExtractField(string json, string fieldName)
+    {
+        string searchPattern = $"\"{fieldName}\": ";
+        int startIndex = json.IndexOf(searchPattern);
+        if (startIndex < 0) return "";
+        
+        startIndex += searchPattern.Length;
+        
+        // Check if it's a string
+        bool isString = json[startIndex] == '"';
+        if (isString) startIndex++;
+        
+        // Find the end of the value
+        int endIndex;
+        if (isString)
+        {
+            endIndex = json.IndexOf('"', startIndex);
+        }
+        else
+        {
+            // For non-string values, look for comma or closing brace
+            endIndex = json.IndexOfAny(new char[] { ',', '}' }, startIndex);
+        }
+        
+        if (endIndex < 0) return "";
+        
+        return json.Substring(startIndex, endIndex - startIndex);
+    }
+    
+    // Update best scores
+    public IEnumerator UpdateGameProgressCoroutine(string userEmail, string bestScores, Action<bool, string> callback = null)
+    {
+        // Check server connection first
+        yield return TestServerConnection();
+        
+        // If server is not reachable, store locally for later sync
+        if (_isServerReachable == false)
+        {
+            // Store progress locally
+            PlayerPrefs.SetString("PendingProgressUpdate_userEmail", userEmail);
+            PlayerPrefs.SetString("PendingProgressUpdate_bestScores", bestScores);
+            PlayerPrefs.Save();
+            
+            if (callback != null)
+            {
+                callback(true, "Progress saved locally (offline)");
+            }
+            
+            yield break;
+        }
+        
+        var request = new GameProgressRequest
+        {
+            userEmail = userEmail,
+            bestScores = bestScores
+        };
+
+        yield return SendPostRequest("/api/progress", request, (success, responseText) =>
+        {
+            if (success)
+            {
+                if (callback != null)
+                    callback(true, "Progress updated successfully");
+            }
+            else
+            {
+                if (callback != null)
+                    callback(false, ParseErrorMessage(responseText));
+            }
+        });
+    }
+    
+    // Overload without callback for simpler calls
+    public IEnumerator UpdateGameProgressCoroutine(string userEmail, string bestScores)
+    {
+        yield return UpdateGameProgressCoroutine(userEmail, bestScores, null);
+    }
+
     public IEnumerator TestServerConnection()
     {
         using (UnityWebRequest www = UnityWebRequest.Get(serverUrl))
@@ -251,11 +382,6 @@ public class NetworkManager : MonoBehaviour
             yield return www.SendWebRequest();
 
             _isServerReachable = (www.result == UnityWebRequest.Result.Success);
-            
-            if (_isServerReachable)
-                Debug.Log(" Connected to server.");
-            else
-                Debug.LogWarning(" Server not reachable. Check URL or server status.");
         }
     }
 
@@ -285,10 +411,22 @@ public class NetworkManager : MonoBehaviour
         try
         {
             var error = JsonUtility.FromJson<ErrorResponse>(json);
-            if (string.IsNullOrEmpty(error.error)) return "An unknown error occurred.";
-            if (error.error.Contains("already exists")) return "Email already registered.";
-            if (error.error.Contains("Invalid email or password")) return "Incorrect email or password.";
-            if (error.error.Contains("Database error")) return "Server error. Try again later.";
+            if (string.IsNullOrEmpty(error.error))
+            {
+                return "An unknown error occurred.";
+            }
+            if (error.error.Contains("already exists"))
+            {
+                return "Email already registered.";
+            }
+            if (error.error.Contains("Invalid email or password"))
+            {
+                return "Incorrect email or password.";
+            }
+            if (error.error.Contains("Database error"))
+            {
+                return "Server error. Try again later.";
+            }
             return error.error;
         }
         catch

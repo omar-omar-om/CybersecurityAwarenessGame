@@ -126,7 +126,6 @@ public class MainMenuUIManager : MonoBehaviour
 
     private void Logout()
     {
-        Debug.Log("Logging out user");
         
         // Get the email
         string email = PlayerPrefs.GetString("lastLoginEmail", "");

@@ -6,26 +6,22 @@ using UnityEngine.SceneManagement;
 public class StarterSceneController : MonoBehaviour
 {
     public float displayTime = 5f; // Time to display the starter scene
-    public string mainMenuSceneName = "MainMenu"; // Name of your main menu scene
+    public string mainMenuSceneName = "MainMenu"; // Name of  main menu scene
     public bool useFade = true; // Whether to use fade transition
     public float fadeTime = 1f; // Time for fade transition
     
-    // Reference to a black image for fading (optional)
     public CanvasGroup fadeCanvasGroup;
 
-    void Start()
-    {
-        // Force landscape orientation
-        Screen.orientation = ScreenOrientation.LandscapeLeft;
-        
-        // Start the transition coroutine
-        StartCoroutine(CheckLoginAndTransition());
-    }
-
-    void Awake()
+    private void Awake()
     {
         // Ensure landscape orientation from the very beginning
         Screen.orientation = ScreenOrientation.LandscapeLeft;
+    }
+
+    void Start()
+    {
+        // Start the transition coroutine
+        StartCoroutine(CheckLoginAndTransition());
     }
 
     private IEnumerator CheckLoginAndTransition()
@@ -45,12 +41,10 @@ public class StarterSceneController : MonoBehaviour
         // Get the last used email from PlayerPrefs
         string lastEmail = PlayerPrefs.GetString("lastLoginEmail", "");
         
-        Debug.Log($"Startup check - isLoggedIn: {isLoggedIn}, lastEmail: {lastEmail}");
         
         if (isLoggedIn == 1 && !string.IsNullOrEmpty(lastEmail))
         {
             // User is logged in, go to MainMenu
-            Debug.Log("User is logged in - going to MainMenu");
             
             if (useFade && fadeCanvasGroup != null)
             {
@@ -68,7 +62,6 @@ public class StarterSceneController : MonoBehaviour
         else
         {
             // Not logged in, go to Login
-            Debug.Log("User is not logged in - going to Login scene");
             
             if (useFade && fadeCanvasGroup != null)
             {

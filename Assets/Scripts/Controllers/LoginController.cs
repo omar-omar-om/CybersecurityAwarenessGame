@@ -48,6 +48,16 @@ public class LoginController : MonoBehaviour
         {
             // Auto-login successful
             loginView.ShowSuccess();
+            
+            // Get email and store as UserID for the progress system
+            string email = PlayerPrefs.GetString("lastLoginEmail", "");
+            PlayerPrefs.SetString("UserID", email);
+            PlayerPrefs.Save();
+            
+            // Sync scores with server
+            SyncUserProgressWithServer(email);
+            
+            // Redirect to main menu
             StartCoroutine(DelayedRedirect());
         }
         else
@@ -91,11 +101,16 @@ public class LoginController : MonoBehaviour
             }
             else
             {
-                // Save email for later use
-                PlayerPrefs.SetString("lastLoginEmail", loginView.GetEmail());
+                // Save email for later use and as UserID for the progress system
+                string email = loginView.GetEmail();
+                PlayerPrefs.SetString("lastLoginEmail", email);
+                PlayerPrefs.SetString("UserID", email);
                 // Mark user as logged in
                 PlayerPrefs.SetInt("isLoggedIn", 1);
                 PlayerPrefs.Save();
+                
+                // Sync scores with server
+                SyncUserProgressWithServer(email);
                 
                 // Login successful, show success message
                 loginView.ShowSuccess();
@@ -109,6 +124,16 @@ public class LoginController : MonoBehaviour
             // Show error message
             loginView.ShowError(message);
         }
+    }
+    
+    // Sync user progress with server
+    private void SyncUserProgressWithServer(string email)
+    {
+        // Find the ProgressSynchronizer in the scene
+        ProgressSynchronizer synchronizer = FindObjectOfType<ProgressSynchronizer>();
+        
+        // Start the synchronization process
+        synchronizer.SyncProgressWithServer(email);
     }
     
     private IEnumerator DelayedRedirect()
