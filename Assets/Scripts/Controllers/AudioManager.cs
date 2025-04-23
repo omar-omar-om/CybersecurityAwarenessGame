@@ -43,10 +43,7 @@ public class AudioManager : MonoBehaviour
             
             backgroundMusic.Play();
         }
-        else
-        {
-            Debug.LogError("eroor");
-        }
+        
 
         // Configure the hit sound audio source
         if (hitSoundClip != null)

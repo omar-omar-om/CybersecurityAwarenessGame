@@ -22,7 +22,6 @@ public class CountdownController : MonoBehaviour
         // Initially hide the text
         countdownText.gameObject.SetActive(false);
         
-        // Set up basic audio source
         audioSource = gameObject.AddComponent<AudioSource>();
         audioSource.playOnAwake = false;
         

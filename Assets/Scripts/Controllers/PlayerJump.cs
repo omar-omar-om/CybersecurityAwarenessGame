@@ -13,16 +13,23 @@ public class PlayerJump : MonoBehaviour
     private Animator animator;
     private ParticleSystem playerParticles;
     private float startTime;
+    private AudioManager audioManager;
 
     [SerializeField] private Button jumpButton;
 
     public static bool canJump = true; 
 
-    void Start()
+    private void Awake()
     {
+        // Get components
         rb = GetComponent<Rigidbody2D>();
         animator = GetComponent<Animator>();
         playerParticles = GetComponentInChildren<ParticleSystem>();
+        audioManager = FindObjectOfType<AudioManager>();
+    }
+
+    private void Start()
+    {
         startTime = Time.time;
 
         // Ensure Jump Button is assigned and add a listener
@@ -48,7 +55,7 @@ public class PlayerJump : MonoBehaviour
         if (canJump == false) return;
 
         // Keyboard Jump Support (For PC)
-        if (Input.GetKeyDown(KeyCode.Space))
+        if (Input.GetKeyDown(KeyCode.Space) == true)
         {
             Jump();
         }
@@ -67,7 +74,7 @@ public class PlayerJump : MonoBehaviour
 
     void Jump()
     {
-        if (isGrounded || jumpCount < maxJumps)
+        if (isGrounded == true || jumpCount < maxJumps)
         {
             rb.velocity = new Vector2(rb.velocity.x, jumpForce);
             jumpCount++;
@@ -77,7 +84,7 @@ public class PlayerJump : MonoBehaviour
 
     void OnCollisionEnter2D(Collision2D collision)
     {
-        if (collision.gameObject.CompareTag("Ground"))
+        if (collision.gameObject.CompareTag("Ground") == true)
         {
             jumpCount = 0;
             isGrounded = true; // Reset to allow jumping again

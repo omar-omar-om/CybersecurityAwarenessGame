@@ -21,7 +21,7 @@ public class QuestionController : MonoBehaviour
 
     private void Start()
     {
-        // Check if we're in Level 2
+        // Check if we are in Level 2
         isLevel2 = SceneManager.GetActiveScene().name == "Level2";
         
         // Subscribe to events
@@ -165,7 +165,7 @@ public class QuestionController : MonoBehaviour
 
     private void HandleQuestionsExhausted()
     {
-        Debug.Log("Level complete! Checking health...");
+        
         
         HeartManager heartManager = FindObjectOfType<HeartManager>();
         if (heartManager != null)
@@ -185,7 +185,7 @@ public class QuestionController : MonoBehaviour
         }
         else
         {
-            Debug.Log("Oops, couldn't find health manager. Going to game over.");
+            
             GameOverController.SetLastPlayedLevel(SceneManager.GetActiveScene().name);
             SceneManager.LoadScene("GameOver");
         }
@@ -229,16 +229,19 @@ public class QuestionController : MonoBehaviour
 
     private void ShowShieldChoice()
     {
-        isShowingShieldChoice = true;
-        // Use the same question panel but with shield choice text
-        QuestionModel.QuestionData shieldChoice = new QuestionModel.QuestionData
+        if (isShowingShieldChoice == false)
         {
-            questionText = "Do you want to enter with all " + currentShieldCount + " shields you have so far?",
-            answers = new string[] { "Yes", "No" },
-            correctAnswerIndex = 0  // Set to 0 to ensure both buttons are positioned correctly
-        };
-        view.DisplayQuestion(shieldChoice);
-        StartCoroutine(ShieldChoiceTimer());
+            isShowingShieldChoice = true;
+            // Use the same question panel but with shield choice text
+            QuestionModel.QuestionData shieldChoice = new QuestionModel.QuestionData
+            {
+                questionText = "Do you want to enter with all " + currentShieldCount + " shields you have so far?",
+                answers = new string[] { "Yes", "No" },
+                correctAnswerIndex = 0  
+            };
+            view.DisplayQuestion(shieldChoice);
+            StartCoroutine(ShieldChoiceTimer());
+        }
     }
 
     private IEnumerator ShieldChoiceTimer()
@@ -271,7 +274,6 @@ public class QuestionController : MonoBehaviour
         {
             // Player chose to save shields
             ScoreManager.Instance.SetBettingAllShields(false);
-            // Keep the shields for next time
         }
         
         // Now show the actual question

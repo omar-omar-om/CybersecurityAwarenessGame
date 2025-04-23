@@ -19,10 +19,11 @@ public class PlayerDamageFlash : MonoBehaviour
     // Called when game starts
     private void Awake()
     {
-        // Get the SpriteRenderer component
+        // Get the sprite renderer
         spriteRenderer = GetComponent<SpriteRenderer>();
-        originalColor = spriteRenderer.color;  // Store original color at start
+        originalColor = spriteRenderer.color;
     }
+
 
     private void OnDisable()
     {

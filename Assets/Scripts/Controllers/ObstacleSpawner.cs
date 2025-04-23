@@ -53,8 +53,11 @@ public class ObstacleSpawner : MonoBehaviour
     }
 
     // Spawn a random obstacle
-    void SpawnObstacle()
+    private void SpawnObstacle()
     {
+        // Don't spawn obstacles during questions
+        if (canSpawn == false) return;
+
         // In Level 1, only spawn obstacle1
         if (isLevel1)
         {

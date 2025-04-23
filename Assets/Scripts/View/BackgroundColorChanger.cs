@@ -26,16 +26,20 @@ public class BackgroundColorChanger : MonoBehaviour
     // Track transition progress
     private float transitionProgress = 0f;
 
+    private Color currentColor;
+    private Color targetColor;
+
+    private void Awake()
+    {
+        // Get the background renderer
+        backgroundRenderer = GetComponent<SpriteRenderer>();
+        currentColor = colors[0];
+        targetColor = colors[1];
+    }
+
     private void Start()
     {
-        // Get the SpriteRenderer component
-        backgroundRenderer = GetComponent<SpriteRenderer>();
-        
-        // Make sure we start with the first color
-        if (backgroundRenderer != null)
-        {
-            backgroundRenderer.color = colors[0];
-        }
+        // Any additional initialization can go here
     }
 
     private void Update()

@@ -6,7 +6,7 @@ using System;
 public class QuestionModel : MonoBehaviour
 {
     // Class to hold data for each question
-    [System.Serializable]
+    [Serializable]
     public class QuestionData
     {
         public string questionText;        // The actual question

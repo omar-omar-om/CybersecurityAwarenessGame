@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
 using UnityEngine.SceneManagement;
+using System;
 
 public class ScoreManager : MonoBehaviour
 {
@@ -11,23 +12,25 @@ public class ScoreManager : MonoBehaviour
     
     // Reference to the score text in UI
     public TMP_Text scoreText;
+    // Reference to the best score text in UI
+    public TMP_Text bestScoreText;
     
     // Variables to track game state
     private int score = 0;
+    private int bestScore = 0;
     private int shields = 0;
     private int correctAnswersInARow = 0;
     private HeartManager heartManager;
     private bool isBettingAllShields = false;
     private int savedShields = 0;
-
+    
     // Called when the script starts
     private void Awake()
     {
-        // Proper singleton setup that persists between scenes
+        // Singleton setup for current scene only
         if (Instance == null)
         {
             Instance = this;
-            DontDestroyOnLoad(gameObject);
         }
         else
         {
@@ -39,29 +42,47 @@ public class ScoreManager : MonoBehaviour
     {
         // Find the HeartManager in the game
         heartManager = FindObjectOfType<HeartManager>();
-        FindScoreText();
+        FindScoreTexts();
+        
+        // Load the best score for the current level
+        LoadBestScore();
+        
         // Show initial score of 0
         UpdateScoreDisplay();
     }
 
     private void OnLevelWasLoaded(int level)
     {
+        // Check if current score is higher than best score before resetting
+        UpdateBestScore();
+        
         // Reset score when loading a new level
         ResetScore();
         
         // Update references when new level loads
         heartManager = FindObjectOfType<HeartManager>();
-        FindScoreText();
+        FindScoreTexts();
+        
+        // Load the best score for the new level
+        LoadBestScore();
+        
         UpdateScoreDisplay();
     }
 
-    private void FindScoreText()
+    private void FindScoreTexts()
     {
         // Find the score text specifically by name
         GameObject scoreTextObj = GameObject.Find("ScoreText");
         if (scoreTextObj != null)
         {
             scoreText = scoreTextObj.GetComponent<TMP_Text>();
+        }
+        
+        // Find the best score text specifically by name
+        GameObject bestScoreTextObj = GameObject.Find("BestScoreText");
+        if (bestScoreTextObj != null)
+        {
+            bestScoreText = bestScoreTextObj.GetComponent<TMP_Text>();
         }
     }
 
@@ -172,6 +193,11 @@ public class ScoreManager : MonoBehaviour
         {
             ShieldManager.Instance.AddShield();
         }
+        
+        // Check if current score is higher than best score
+        UpdateBestScore();
+        
+        // Update UI
         UpdateScoreDisplay();
     }
 
@@ -191,6 +217,87 @@ public class ScoreManager : MonoBehaviour
         if (scoreText != null)
         {
             scoreText.text = "Score: " + score;
+        }
+        
+        if (bestScoreText != null)
+        {
+            bestScoreText.text = "Best: " + bestScore;
+        }
+    }
+    
+    // Set the best score (called from ProgressSynchronizer)
+    public void SetBestScore(int newBestScore)
+    {
+        if (newBestScore > bestScore)
+        {
+            bestScore = newBestScore;
+            UpdateScoreDisplay();
+            
+            // Save to PlayerPrefs but dont trigger a server update since we just got this from the server...
+            string currentLevel = SceneManager.GetActiveScene().name;
+            string scoreKey = GetScoreKey(currentLevel);
+            PlayerPrefs.SetInt(scoreKey, bestScore);
+            PlayerPrefs.Save();
+        }
+    }
+    
+    // Update the best score if the current score is higher
+    private void UpdateBestScore()
+    {
+        if (score > bestScore)
+        {
+            bestScore = score;
+            SaveBestScore();
+        }
+    }
+    
+    // Gets the score key for the specified level
+    private string GetScoreKey(string level)
+    {
+        string userId = PlayerPrefs.GetString("UserID", "");
+        return $"{userId}_{level}_BestScore";
+    }
+    
+    // Load the best score for the current level
+    private void LoadBestScore()
+    {
+        string currentLevel = SceneManager.GetActiveScene().name;
+        string scoreKey = GetScoreKey(currentLevel);
+        bestScore = PlayerPrefs.GetInt(scoreKey, 0);
+    }
+    
+    // Save the best score for the current level
+    private void SaveBestScore()
+    {
+        string currentLevel = SceneManager.GetActiveScene().name;
+        string scoreKey = GetScoreKey(currentLevel);
+        PlayerPrefs.SetInt(scoreKey, bestScore);
+        PlayerPrefs.Save();
+        
+        // Also update best score on the server if online
+        UpdateBestScoreOnServer();
+    }
+    
+    // Update best score on the server (if online)
+    private void UpdateBestScoreOnServer()
+    {
+        // Get the current user ID
+        string userId = PlayerPrefs.GetString("UserID", "");
+        
+        try
+        {
+            // Get the current scene name
+            string currentLevel = SceneManager.GetActiveScene().name;
+            
+            // Create a JSON object for best scores
+            string bestScoresJson = $"{{\"{currentLevel}\": {bestScore}}}";
+            
+            // Start a coroutine to send the data
+            StartCoroutine(NetworkManager.Instance.UpdateGameProgressCoroutine(userId, bestScoresJson));
+        }
+        catch (Exception)
+        {
+            // Silently fail if there's an error updating the server
         }
     }
 

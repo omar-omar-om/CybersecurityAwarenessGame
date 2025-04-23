@@ -13,7 +13,7 @@ public class VerificationView : MonoBehaviour, IPointerClickHandler
     public TMP_Text errorMessageText;
 
     // Events
-    public delegate void VerifyButtonClicked(string question, string answer);
+    public delegate void VerifyButtonClicked(string answer);
     public event VerifyButtonClicked OnVerifyButtonClicked;
     public event System.Action OnBackToLoginButtonClicked;
 
@@ -35,8 +35,7 @@ public class VerificationView : MonoBehaviour, IPointerClickHandler
             return;
         }
 
-        string selectedQuestion = securityQuestionDropdown.options[securityQuestionDropdown.value].text;
-        OnVerifyButtonClicked?.Invoke(selectedQuestion, answerInput.text);
+        OnVerifyButtonClicked?.Invoke(answerInput.text);
     }
 
     private void HandleBackToLoginButtonClick()
@@ -44,7 +43,7 @@ public class VerificationView : MonoBehaviour, IPointerClickHandler
         OnBackToLoginButtonClicked?.Invoke();
     }
 
-    public void SetQuestion(string question)
+    public void SetSecurityQuestion(string question)
     {
         // Clear existing options
         securityQuestionDropdown.ClearOptions();
@@ -57,10 +56,26 @@ public class VerificationView : MonoBehaviour, IPointerClickHandler
         // Set it as selected
         securityQuestionDropdown.value = 0;
     }
+    
+    public string GetSecurityQuestion()
+    {
+        if (securityQuestionDropdown.options.Count > 0)
+        {
+            return securityQuestionDropdown.options[securityQuestionDropdown.value].text;
+        }
+        return "";
+    }
 
     public void ShowError(string message)
     {
         errorMessageText.color = Color.red; // Error messages are red
+        errorMessageText.text = message;
+        errorMessageText.gameObject.SetActive(true);
+    }
+    
+    public void ShowMessage(string message)
+    {
+        errorMessageText.color = Color.white; // Info messages are white
         errorMessageText.text = message;
         errorMessageText.gameObject.SetActive(true);
     }
@@ -78,6 +93,11 @@ public class VerificationView : MonoBehaviour, IPointerClickHandler
     }
 
     public void HideError()
+    {
+        errorMessageText.gameObject.SetActive(false);
+    }
+    
+    public void ClearStatus()
     {
         errorMessageText.gameObject.SetActive(false);
     }

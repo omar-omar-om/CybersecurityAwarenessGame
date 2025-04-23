@@ -36,9 +36,12 @@ public class ShieldSpawner : MonoBehaviour
         }
     }
 
-    // Spawn a shield in a random position
+    // Spawn a shield at a random height
     void SpawnShield()
     {
+        // Don't spawn shields during questions
+        if (canSpawn == false) return;
+        
         // Pick random pattern (0 = ground level, 1 = in air)
         int pattern = Random.Range(0, 2);
 

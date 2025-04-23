@@ -9,12 +9,22 @@ public class VerificationController : MonoBehaviour
 
     void Start()
     {
+        // Get the email saved from the login screen
+        currentEmail = PlayerPrefs.GetString("lastLoginEmail", "");
+        
+        if (string.IsNullOrEmpty(currentEmail))
+        {
+            // No email found, go back to login
+            SceneManager.LoadScene("Login");
+            return;
+        }
+        
+        // Show verification screen and get security question
+        StartCoroutine(GetSecurityQuestion(currentEmail));
+        
         // Subscribe to view events
         verificationView.OnVerifyButtonClicked += HandleVerifyRequest;
         verificationView.OnBackToLoginButtonClicked += HandleBackToLogin;
-
-        // Get the security question from NetworkManager
-        StartCoroutine(GetSecurityQuestion());
     }
 
     private void OnDestroy()
@@ -27,44 +37,33 @@ public class VerificationController : MonoBehaviour
         }
     }
 
-    private IEnumerator GetSecurityQuestion()
+    private IEnumerator GetSecurityQuestion(string email)
     {
-        // Get the email from PlayerPrefs (set during login)
-        currentEmail = PlayerPrefs.GetString("lastLoginEmail", "");
-        Debug.Log("Getting security question for email: " + currentEmail);
+        verificationView.ShowMessage("Loading security question...");
         
-        if (string.IsNullOrEmpty(currentEmail))
-        {
-            verificationView.ShowError("No email found. Please login again.");
-            yield return new WaitForSeconds(2f);
-            SceneManager.LoadScene("Login");
-            yield break;
-        }
-
-        // Call NetworkManager to get the security question
         yield return StartCoroutine(NetworkManager.Instance.GetSecurityQuestion(
-            currentEmail,
-            OnQuestionReceived));
+            email,
+            OnSecurityQuestionResponse));
     }
 
-    private void OnQuestionReceived(bool success, string question, string message)
+    private void OnSecurityQuestionResponse(bool success, string question, string message)
     {
         if (success)
         {
-            Debug.Log("Received security question: " + question);
-            verificationView.SetQuestion(question);
+            // Show the security question
+            verificationView.SetSecurityQuestion(question);
+            verificationView.ClearStatus();
         }
         else
         {
-            Debug.LogError("Failed to get security question: " + message);
-            verificationView.ShowError(message);
+            // Show error and provide option to go back
+            verificationView.ShowError("Failed to load security question. " + message);
         }
     }
 
-    private void HandleVerifyRequest(string question, string answer)
+    private void HandleVerifyRequest(string answer)
     {
-        Debug.Log("Attempting to verify with answer: " + answer);
-        StartCoroutine(VerifyAnswer(question, answer));
+        StartCoroutine(VerifyAnswer(verificationView.GetSecurityQuestion(), answer));
     }
 
     private IEnumerator VerifyAnswer(string question, string answer)
@@ -78,8 +77,6 @@ public class VerificationController : MonoBehaviour
 
     private void OnVerificationResponse(bool success, string message)
     {
-        Debug.Log("Verification response: " + (success ? "Success" : "Failed") + " - " + message);
-        
         if (success)
         {
             // Save verification status
@@ -87,7 +84,12 @@ public class VerificationController : MonoBehaviour
             PlayerPrefs.SetInt("deviceVerified_" + currentEmail, 1);
             // Mark user as logged in
             PlayerPrefs.SetInt("isLoggedIn", 1);
+            // Store email as UserID for progress tracking
+            PlayerPrefs.SetString("UserID", currentEmail);
             PlayerPrefs.Save();
+
+            // Sync scores with server
+            SyncUserProgressWithServer(currentEmail);
 
             // Show success message
             verificationView.ShowSuccess();
@@ -98,6 +100,16 @@ public class VerificationController : MonoBehaviour
         {
             verificationView.ShowError(message);
         }
+    }
+
+    // Sync user progress with server
+    private void SyncUserProgressWithServer(string email)
+    {
+        // Find the ProgressSynchronizer in the scene
+        ProgressSynchronizer synchronizer = FindObjectOfType<ProgressSynchronizer>();
+        
+        // Start the synchronization process
+        synchronizer.SyncProgressWithServer(email);
     }
 
     private IEnumerator DelayedRedirect()

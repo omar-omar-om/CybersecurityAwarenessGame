@@ -5,7 +5,7 @@ using UnityEngine.SceneManagement;
 
 public class Level2Controller : MonoBehaviour
 {
-    private void Start()
+    private void awake()
     {
         // Force landscape orientation for Level 2
         Screen.orientation = ScreenOrientation.LandscapeLeft;
