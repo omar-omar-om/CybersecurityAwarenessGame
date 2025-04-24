@@ -49,10 +49,7 @@ public class RegisterView : MonoBehaviour, IPointerClickHandler
         // Add security questions one by one
         options.Add("What was your first pet's name?");
         options.Add("What is your mother's maiden name?");
-        options.Add("In what city were you born?");
-        options.Add("What was the name of your first school?");
-        options.Add("What is your favorite movie?");
-        
+        options.Add("In what city were you born?");        
         // Add all options to dropdown
         securityQuestionDropdown.AddOptions(options);
         securityQuestionDropdown.value = 0; // Select the placeholder by default

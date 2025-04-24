@@ -1,5 +1,5 @@
 fileFormatVersion: 2
-guid: f3a2e7eb693d2fd4bb1f81ebf26a94bc
+guid: 9113061133f06624a91bd3099d3819f2
 TextureImporter:
   internalIDToNameTable: []
   externalObjects: {}
@@ -43,7 +43,7 @@ TextureImporter:
   nPOTScale: 0
   lightmap: 0
   compressionQuality: 50
-  spriteMode: 1
+  spriteMode: 2
   spriteExtrude: 1
   spriteMeshType: 1
   alignment: 0
@@ -134,7 +134,70 @@ TextureImporter:
     forceMaximumCompressionQuality_BC6H_BC7: 0
   spriteSheet:
     serializedVersion: 2
-    sprites: []
+    sprites:
+    - serializedVersion: 2
+      name: omar hahas (14)_0
+      rect:
+        serializedVersion: 2
+        x: 656
+        y: 702
+        width: 304
+        height: 100
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 5f04fc741d33138428d6d35d2bbadfde
+      internalID: -1951550712
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: omar hahas (14)_1
+      rect:
+        serializedVersion: 2
+        x: 656
+        y: 540
+        width: 304
+        height: 100
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 105aaeaf4488d914d8e6a3f35f122484
+      internalID: -1156825043
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: omar hahas (14)_2
+      rect:
+        serializedVersion: 2
+        x: 656
+        y: 397
+        width: 304
+        height: 100
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 65ba639fc129a654aa4aec14e3bb2ea0
+      internalID: 1943346958
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
     outline: []
     physicsShape: []
     bones: []
@@ -145,7 +208,10 @@ TextureImporter:
     edges: []
     weights: []
     secondaryTextures: []
-    nameFileIdTable: {}
+    nameFileIdTable:
+      omar hahas (14)_0: -1951550712
+      omar hahas (14)_1: -1156825043
+      omar hahas (14)_2: 1943346958
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

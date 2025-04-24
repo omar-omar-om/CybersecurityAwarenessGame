@@ -5,7 +5,7 @@ using UnityEngine.SceneManagement;
 
 public class Level2Controller : MonoBehaviour
 {
-    private void awake()
+    private void Awake()
     {
         // Force landscape orientation for Level 2
         Screen.orientation = ScreenOrientation.LandscapeLeft;
@@ -14,5 +14,11 @@ public class Level2Controller : MonoBehaviour
         PlayerJump.canJump = true;
         ObstacleSpawner.canSpawn = true;
         ShieldSpawner.canSpawn = true;
+    }
+
+    private void Start()
+    {
+        // Ensure jump state is reset when level starts
+        PlayerJump.canJump = true;
     }
 } 
