@@ -6,8 +6,6 @@ using UnityEngine.EventSystems;
 
 public class GameWonController : MonoBehaviour
 {
-    public AudioClip gameWonSound; // Assign in inspector
-    private AudioSource audioSource;
     private static string lastPlayedLevel = "Level1"; // Track the last played level
     private bool isTransitioning = false;
     private Canvas gameWonCanvas;
@@ -35,27 +33,6 @@ public class GameWonController : MonoBehaviour
         {
             gameWonCanvas.enabled = true;
         }
-
-        // Setup and play game won sound
-        if (gameWonSound != null)
-        {
-            audioSource = gameObject.AddComponent<AudioSource>();
-            audioSource.clip = gameWonSound;
-            audioSource.loop = false;
-            audioSource.playOnAwake = false;
-            audioSource.volume = 0.5f;
-            audioSource.Play();
-        }
-    }
-
-    private void OnDestroy()
-    {
-       
-        if (audioSource != null)
-        {
-            audioSource.Stop();
-            Destroy(audioSource);
-        }
     }
 
     public void PlayAgain()
@@ -79,17 +56,6 @@ public class GameWonController : MonoBehaviour
     private IEnumerator TransitionToMainMenu()
     {
         
-        // Clean up any DontDestroyOnLoad objects that might be interfering
-        GameObject[] persistentObjects = GameObject.FindGameObjectsWithTag("MainMenuUI");
-        foreach (GameObject obj in persistentObjects)
-        {
-            Destroy(obj);
-        }
-        
-        // Check EventSystem
-        EventSystem eventSystem = FindObjectOfType<EventSystem>();
-        
-
         // Hide game won canvas
         if (gameWonCanvas != null)
         {
@@ -101,13 +67,6 @@ public class GameWonController : MonoBehaviour
         
         // Wait for orientation to change
         yield return new WaitForSeconds(0.3f);
-        
-        // Clean up audio
-        if (audioSource != null)
-        {
-            audioSource.Stop();
-            Destroy(audioSource);
-        }
 
         // Load MainMenu scene
         SceneManager.LoadScene("MainMenu");

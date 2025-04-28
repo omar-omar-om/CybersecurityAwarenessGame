@@ -11,7 +11,6 @@ public class ShieldUI : MonoBehaviour
     // Called when game starts
     private void Start()
     {
-        // Wait one frame to make sure ShieldManager is ready
         StartCoroutine(SetupShieldUI());
     }
 

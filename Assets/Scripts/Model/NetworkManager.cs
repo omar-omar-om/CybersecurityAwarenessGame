@@ -14,7 +14,6 @@ public class NetworkManager : MonoBehaviour
     
     // Server connection status
     private bool _isServerReachable = false;
-    public bool IsServerReachable => _isServerReachable;
 
     private void Awake()
     {
@@ -266,62 +265,14 @@ public class NetworkManager : MonoBehaviour
             if (www.result == UnityWebRequest.Result.Success)
             {
                 string responseText = www.downloadHandler.text;
-                try 
-                {
-                    // Parse the response
-                    GameProgressResponse response = JsonUtility.FromJson<GameProgressResponse>(responseText);
-                    callback(true, response.bestScores);
-                }
-                catch (Exception)
-                {
-                    // If parsing fails, try to extract manually (as a fallback)
-                    string bestScores = ExtractField(responseText, "bestScores");
-                    
-                    if (!string.IsNullOrEmpty(bestScores))
-                    {
-                        callback(true, bestScores);
-                    }
-                    else
-                    {
-                        callback(false, "{}");
-                    }
-                }
+                GameProgressResponse response = JsonUtility.FromJson<GameProgressResponse>(responseText);
+                callback(true, response.bestScores);
             }
             else
             {
                 callback(false, "{}");
             }
         }
-    }
-    
-    // Helper method to extract field from JSON
-    private string ExtractField(string json, string fieldName)
-    {
-        string searchPattern = $"\"{fieldName}\": ";
-        int startIndex = json.IndexOf(searchPattern);
-        if (startIndex < 0) return "";
-        
-        startIndex += searchPattern.Length;
-        
-        // Check if it's a string
-        bool isString = json[startIndex] == '"';
-        if (isString) startIndex++;
-        
-        // Find the end of the value
-        int endIndex;
-        if (isString)
-        {
-            endIndex = json.IndexOf('"', startIndex);
-        }
-        else
-        {
-            // For non-string values, look for comma or closing brace
-            endIndex = json.IndexOfAny(new char[] { ',', '}' }, startIndex);
-        }
-        
-        if (endIndex < 0) return "";
-        
-        return json.Substring(startIndex, endIndex - startIndex);
     }
     
     // Update best scores

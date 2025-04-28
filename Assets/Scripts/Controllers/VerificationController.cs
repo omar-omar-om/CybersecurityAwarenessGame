@@ -56,7 +56,7 @@ public class VerificationController : MonoBehaviour
         }
         else
         {
-            // Show error and provide option to go back
+            // Show error 
             verificationView.ShowError("Failed to load security question. " + message);
         }
     }

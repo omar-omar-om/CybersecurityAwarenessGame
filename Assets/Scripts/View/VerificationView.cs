@@ -2,10 +2,10 @@ using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
 using UnityEngine.EventSystems;
+using System.Collections.Generic;
 
 public class VerificationView : MonoBehaviour, IPointerClickHandler
 {
-    [Header("UI Elements")]
     public TMP_Dropdown securityQuestionDropdown;
     public TMP_InputField answerInput;
     public Button verifyButton;
@@ -48,10 +48,8 @@ public class VerificationView : MonoBehaviour, IPointerClickHandler
         // Clear existing options
         securityQuestionDropdown.ClearOptions();
         
-        // Add the question as the only option
-        var options = new System.Collections.Generic.List<string>();
-        options.Add(question);
-        securityQuestionDropdown.AddOptions(options);
+        // Add the question as the only option 
+        securityQuestionDropdown.AddOptions(new List<string> { question });
         
         // Set it as selected
         securityQuestionDropdown.value = 0;
@@ -61,7 +59,7 @@ public class VerificationView : MonoBehaviour, IPointerClickHandler
     {
         if (securityQuestionDropdown.options.Count > 0)
         {
-            return securityQuestionDropdown.options[securityQuestionDropdown.value].text;
+            return securityQuestionDropdown.options[0].text;
         }
         return "";
     }
@@ -92,11 +90,6 @@ public class VerificationView : MonoBehaviour, IPointerClickHandler
         backToLoginButton.interactable = false;
     }
 
-    public void HideError()
-    {
-        errorMessageText.gameObject.SetActive(false);
-    }
-    
     public void ClearStatus()
     {
         errorMessageText.gameObject.SetActive(false);
@@ -106,7 +99,7 @@ public class VerificationView : MonoBehaviour, IPointerClickHandler
     {
         if (errorMessageText.gameObject.activeSelf)
         {
-            HideError();
+            ClearStatus();
         }
     }
 } 

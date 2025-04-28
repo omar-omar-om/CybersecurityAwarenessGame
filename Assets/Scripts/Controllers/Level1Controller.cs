@@ -16,9 +16,4 @@ public class Level1Controller : MonoBehaviour
         ShieldSpawner.canSpawn = true;
     }
 
-    private void Start()
-    {
-        // Ensure jump state is reset when level starts
-        PlayerJump.canJump = true;
-    }
 } 

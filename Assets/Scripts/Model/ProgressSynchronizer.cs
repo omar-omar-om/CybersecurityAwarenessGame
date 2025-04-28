@@ -86,7 +86,7 @@ public class ProgressSynchronizer : MonoBehaviour
     private void CheckAdditionalLocalScores(string userEmail, Dictionary<string, int> serverScores, 
                                            Dictionary<string, int> updatedScores, ref bool needServerUpdate)
     {
-        // Known level keys (add more as your game expands)
+        // Known level keys 
         string[] knownLevels = new string[] { "Level1", "Level2" };
         
         foreach (string level in knownLevels)

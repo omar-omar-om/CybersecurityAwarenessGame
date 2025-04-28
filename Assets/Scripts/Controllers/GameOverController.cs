@@ -6,8 +6,6 @@ using UnityEngine.EventSystems;
 
 public class GameOverController : MonoBehaviour
 {
-    public AudioClip gameOverSound; 
-    private AudioSource audioSource;
     private static string lastPlayedLevel = "Level1"; 
     private bool isTransitioning = false;
     private Canvas gameOverCanvas;
@@ -33,26 +31,6 @@ public class GameOverController : MonoBehaviour
         {
             gameOverCanvas.enabled = true;
         }
-
-        // Play the sad game over music :(
-        if (gameOverSound != null)
-        {
-            audioSource = gameObject.AddComponent<AudioSource>();
-            audioSource.clip = gameOverSound;
-            audioSource.loop = false;
-            audioSource.playOnAwake = false;
-            audioSource.volume = 0.5f;
-            audioSource.Play();
-        }
-    }
-
-    private void OnDestroy()
-    {
-        if (audioSource != null)
-        {
-            audioSource.Stop();
-            Destroy(audioSource);
-        }
     }
 
     // Player wants to try the level again
@@ -77,13 +55,6 @@ public class GameOverController : MonoBehaviour
 
     private IEnumerator TransitionToMainMenu()
     {
-        // Clean up any leftover UI elements
-        GameObject[] persistentObjects = GameObject.FindGameObjectsWithTag("MainMenuUI");
-        foreach (GameObject obj in persistentObjects)
-        {
-            Destroy(obj);
-        }
-        
         // Hide the game over screen
         if (gameOverCanvas != null)
         {
@@ -94,15 +65,8 @@ public class GameOverController : MonoBehaviour
         Screen.orientation = ScreenOrientation.LandscapeLeft;
         yield return new WaitForSeconds(0.3f);
         
-        // Stop any sounds that might be playing
-        if (audioSource != null)
-        {
-            audioSource.Stop();
-            Destroy(audioSource);
-        }
-
         // Head back to the main menu
-        SceneManager.LoadScene("MainMenu", LoadSceneMode.Single);
+        SceneManager.LoadScene("MainMenu");
     }
 
     private IEnumerator LoadLevel(string levelName)

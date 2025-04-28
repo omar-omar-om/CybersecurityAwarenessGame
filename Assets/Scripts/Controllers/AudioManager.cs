@@ -118,8 +118,8 @@ public class AudioManager : MonoBehaviour
 
     public void PlayHitSound()
     {
-        // Only play if we have a clip and the sound is not already playing
-        if (hitSoundClip != null && !hitSound.isPlaying)
+        // Only play if the sound is not already playing
+        if (!hitSound.isPlaying)
         {
             hitSound.Play();
         }
@@ -128,7 +128,7 @@ public class AudioManager : MonoBehaviour
     private void HandleShieldCollected(int shieldCount)
     {
         // Only play the sound when shield count increases
-        if (shieldCollectClip != null && shieldCount > 0)
+        if (shieldCount > 0)
         {
             shieldCollect.Play();
         }
@@ -136,34 +136,13 @@ public class AudioManager : MonoBehaviour
 
     private void HandleAnswerProcessed(bool isCorrect)
     {
-        if (isCorrect == true && correctAnswerClip != null)
+        if (isCorrect)
         {
             correctAnswer.Play();
         }
-        else if (isCorrect == false && wrongAnswerClip != null)
+        else
         {
             wrongAnswer.Play();
-        }
-    }
-
-    // Method to adjust volume (can be called from other scripts if needed)
-    public void SetVolume(float volume)
-    {
-        // Make sure volume is not less than 0
-        if (volume < 0)
-        {
-            volume = 0;
-        }
-        // Make sure volume is not more than 1
-        if (volume > 1)
-        {
-            volume = 1;
-        }
-        
-        musicVolume = volume;
-        if (backgroundMusic != null)
-        {
-            backgroundMusic.volume = musicVolume;
         }
     }
 } 

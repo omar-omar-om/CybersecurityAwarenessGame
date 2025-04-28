@@ -39,7 +39,6 @@ public class HeartManager : MonoBehaviour
 
         if (heartSystem.CurrentHearts <= 0)
         {
-            Debug.Log("Game Over!");
             // Load the game over scene
             SceneManager.LoadScene("GameOver");
         }

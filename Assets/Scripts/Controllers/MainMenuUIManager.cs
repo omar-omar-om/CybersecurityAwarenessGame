@@ -31,25 +31,6 @@ public class MainMenuUIManager : MonoBehaviour
         {
             playButton.interactable = false;
         }
-        
-        // Add button listeners
-        if (level1Button != null)
-        {
-            level1Button.onClick.AddListener(SelectLevel1);
-        }
-        if (level2Button != null)
-        {
-            level2Button.onClick.AddListener(SelectLevel2);
-        }
-        if (logoutButton != null)
-        {
-            // Make logout button directly trigger logout
-            logoutButton.onClick.AddListener(Logout);
-        }
-        if (playButton != null)
-        {
-            playButton.onClick.AddListener(PlaySelected);
-        }
     }
 
     // these methods handle when player clicks level buttons

@@ -37,17 +37,21 @@ public class BackgroundColorChanger : MonoBehaviour
         targetColor = colors[1];
     }
 
-    private void Start()
-    {
-        // Any additional initialization can go here
-    }
-
     private void Update()
     {
-        if (backgroundRenderer == null) return;
+        if (backgroundRenderer == null) return; // just saftey check nothing more
 
         // Get current transition duration based on color
-        float currentDuration = (currentColorIndex == 1) ? baseDuration + extraBlueTime : baseDuration;
+        float currentDuration;
+        switch (currentColorIndex)
+        {
+            case 1:
+                currentDuration = baseDuration + extraBlueTime;
+                break;
+            default:
+                currentDuration = baseDuration;
+                break;
+        }
 
         // Update transition progress
         transitionProgress += Time.deltaTime / currentDuration;
