@@ -39,8 +39,7 @@
 <ul>
   <li>User login and registration system</li>
   <li>Offline login supported on the same verified device after answering a security question</li>
-  <li>Password reset functionality removed in final version</li>
-  <li><strong>Backend server deployed online via Railway App</strong> for handling authentication, verification, and progress synchronization</li>
+  <li><strong>Backend server deployed online via Railway App</strong></li>
 </ul>
 
 <h3>🧠 Learning Through Gameplay</h3>
