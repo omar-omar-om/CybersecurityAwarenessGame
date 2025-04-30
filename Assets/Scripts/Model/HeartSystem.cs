@@ -6,14 +6,7 @@ using System;
 public class HeartSystem
 {
     // Maximum number of hearts player can have
-    public int MaxHearts { get; private set; }
-    // equivalent approach ---> 
- // public int MaxHearts
-// {
-//    get { return maxHearts; }  // Anyone can read
-//    private set { maxHearts = value; }  // Only this class can change it
-//
-// }
+    private int maxHearts;
     
     // Current number of hearts player has
     public int CurrentHearts { get; private set; }
@@ -21,11 +14,11 @@ public class HeartSystem
     // Event that tells UI to update when hearts change
     public event Action<int> OnHeartsChanged;
 
-    // Constructor - called when creating new HeartSystem
+    // Constructor called when creating new HeartSystem in heartmanager  
     public HeartSystem(int maxHearts = 3)
     {
-        MaxHearts = maxHearts;
-        CurrentHearts = MaxHearts;
+        this.maxHearts = maxHearts;
+        CurrentHearts = maxHearts;
     }
 
     // Called when player takes damage
@@ -50,7 +43,7 @@ public class HeartSystem
     // Reset hearts back to maximum
     public void ResetHearts()
     {
-        CurrentHearts = MaxHearts;
+        CurrentHearts = maxHearts;
         
         // Tell UI to update
         if (OnHeartsChanged != null)
@@ -64,9 +57,9 @@ public class HeartSystem
     {
         // Add health but don't go over maximum
         CurrentHearts += amount;
-        if (CurrentHearts > MaxHearts)
+        if (CurrentHearts > maxHearts)
         {
-            CurrentHearts = MaxHearts;
+            CurrentHearts = maxHearts;
         }
         
         // Tell UI to update

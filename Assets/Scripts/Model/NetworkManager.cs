@@ -35,7 +35,7 @@ public class NetworkManager : MonoBehaviour
         StartCoroutine(TestServerConnection());
     }
 
-    // Serializable request/response structures
+    // Serializable request/response structures this is DTO design pattern.
 
     [Serializable] private class RegistrationRequest
     {
@@ -67,7 +67,6 @@ public class NetworkManager : MonoBehaviour
     {
         public string message;
         public bool requiresVerification;
-        public int userId;
     }
 
     [Serializable] private class SecurityQuestionResponse

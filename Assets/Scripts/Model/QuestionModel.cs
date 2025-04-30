@@ -29,7 +29,7 @@ public class QuestionModel : MonoBehaviour
     private QuestionData currentQuestion;
     
     // Is there an active question?
-    public bool IsQuestionActive { get; private set; }
+    private bool isQuestionActive;
     
     // Called when game starts
     void Start()
@@ -42,7 +42,7 @@ public class QuestionModel : MonoBehaviour
     {
         // Copy all questions back to remaining questions
         remainingQuestions = new List<QuestionData>(questions);
-        IsQuestionActive = false;
+        isQuestionActive = false;
     }
 
     // Pick a new random question
@@ -66,7 +66,7 @@ public class QuestionModel : MonoBehaviour
         // Remove it from remaining questions
         remainingQuestions.RemoveAt(randomIndex);
         
-        IsQuestionActive = true;
+        isQuestionActive = true;
         
         // Tell UI to show the question
         if (OnQuestionSelected != null)
@@ -79,11 +79,11 @@ public class QuestionModel : MonoBehaviour
     public void ProcessAnswer(int selectedIndex)
     {
         // Ignore if no question is active
-        if (!IsQuestionActive) return;
+        if (!isQuestionActive) return;
         
         // Check if answer is correct
         bool isCorrect = selectedIndex == currentQuestion.correctAnswerIndex;
-        IsQuestionActive = false;
+        isQuestionActive = false;
         
         // Tell game if answer was correct or not
         if (OnAnswerProcessed != null)
