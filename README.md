@@ -26,7 +26,9 @@
   <li>Integrated quiz questions based on cybersecurity awareness</li>
   <li>In Level 1, correct and incorrect answers impact score based on the number of collected shields</li>
   <li>In Level 2, the scoring system is replaced by a wager mechanism where the player bets all or one point before each question</li>
+  <li>The best score per level is saved and displayed to the player at the start of each level</li>
 </ul>
+
 
 <h4>🖥️ User Interface</h4>
 <ul>
