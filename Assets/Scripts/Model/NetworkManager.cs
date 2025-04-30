@@ -279,7 +279,7 @@ public class NetworkManager : MonoBehaviour
         // Check server connection first
         yield return TestServerConnection();
         
-        // If server is not reachable, store locally for later sync
+        // If server is not reachable store locally for later sync
         if (_isServerReachable == false)
         {
             // Store progress locally
@@ -316,7 +316,6 @@ public class NetworkManager : MonoBehaviour
         });
     }
     
-    // Overload without callback for simpler calls
     public IEnumerator UpdateGameProgressCoroutine(string userEmail, string bestScores)
     {
         yield return UpdateGameProgressCoroutine(userEmail, bestScores, null);
