@@ -29,6 +29,11 @@ public class ProgressSynchronizer : MonoBehaviour
                     // Compare and update with local best scores
                     CompareAndUpdateBestScores(userEmail, serverScores);
                 }
+                else
+                {
+                    // If fetch fails, try to use local scores
+                    CompareAndUpdateBestScores(userEmail, new Dictionary<string, int>());
+                }
             }));
     }
 
@@ -112,7 +117,7 @@ public class ProgressSynchronizer : MonoBehaviour
     private string GetScoreKey(string level)
     {
         string userId = PlayerPrefs.GetString("UserID", "");
-        return $"{userId}_{level}BestScore";
+        return $"{userId}_{level}_BestScore";  // Match ScoreManager's format
     }
 
    
