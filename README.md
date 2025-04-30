@@ -39,9 +39,11 @@
 <ul>
   <li>User login and registration system</li>
   <li>Offline login supported on the same verified device after answering a security question</li>
+  <li>Password reset functionality removed in final version</li>
+  <li><strong>Backend server deployed online via Railway App</strong> for handling authentication, verification, and progress synchronization</li>
 </ul>
 
 <h3>🧠 Learning Through Gameplay</h3>
 <p>
-  Players engage with the game by  digital threats, answering cybersecurity questions, and managing their score through strategic decisions. In Level 1, shields collected influence the scoring for each answer. In Level 2, a wager-based scoring system adds a high-risk, high-reward decision-making challenge. These mechanics promote critical thinking while making cybersecurity learning interactive and fun.
+  Players engage with the game by avoiding digital threats, answering cybersecurity questions, and managing their score through strategic decisions. In Level 1, shields collected influence the scoring for each answer. In Level 2, a wager-based scoring system adds a high-risk, high-reward decision-making challenge. These mechanics promote critical thinking while making cybersecurity learning interactive and fun.
 </p>
