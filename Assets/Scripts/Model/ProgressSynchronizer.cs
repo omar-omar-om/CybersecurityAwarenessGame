@@ -53,7 +53,7 @@ public class ProgressSynchronizer : MonoBehaviour
                 // Update local with server score
                 PlayerPrefs.SetInt(localScoreKey, serverScore);
                 
-                // If we're in this level, update the ScoreManager
+                // If we're in this level update the ScoreManager
                 UpdateScoreManagerIfNeeded(level, serverScore);
             }
             else if (localScore > serverScore)

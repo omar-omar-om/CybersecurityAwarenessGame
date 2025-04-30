@@ -11,7 +11,6 @@ public class NetworkManager : MonoBehaviour
 
     // Base URL 
     private string serverUrl = "https://game-server-production-dbdf.up.railway.app";
-    
     // Server connection status
     private bool _isServerReachable = false;
 
@@ -344,7 +343,8 @@ public class NetworkManager : MonoBehaviour
 
         using (UnityWebRequest www = new UnityWebRequest(serverUrl + endpoint, "POST"))
         {
-            www.uploadHandler = new UploadHandlerRaw(Encoding.UTF8.GetBytes(jsonData));
+            byte[] bodyRaw = Encoding.UTF8.GetBytes(jsonData);
+            www.uploadHandler = new UploadHandlerRaw(bodyRaw);
             www.downloadHandler = new DownloadHandlerBuffer();
             www.SetRequestHeader("Content-Type", "application/json");
 
