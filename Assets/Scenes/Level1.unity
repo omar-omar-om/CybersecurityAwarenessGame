@@ -1541,41 +1541,21 @@ MonoBehaviour:
     - 'Your name  '
     - Special characters
     correctAnswerIndex: 0
-  - questionText: How long should your password be?
+  - questionText: What should you use in your password?
     answers:
+    - 'Your name  '
+    - Special characters
+    correctAnswerIndex: 1
+  - questionText: Should you share password with others?
+    answers:
+    - Yes
+    - No
+    correctAnswerIndex: 1
+  - questionText: How long should be you password
+    answers:
+    - 8 characters
     - 4 characters
-    - At least 8 characters
-    correctAnswerIndex: 1
-  - questionText: "Can someone guess your password if it\u2019s easy?"
-    answers:
-    - Yes
-    - No
     correctAnswerIndex: 0
-  - questionText: Should you share your password with others?
-    answers:
-    - Yes
-    - No
-    correctAnswerIndex: 1
-  - questionText: What is a password manager?
-    answers:
-    - A tool to remember passwords
-    - A tool to hack accounts
-    correctAnswerIndex: 0
-  - questionText: What happens if you use the same password everywhere?
-    answers:
-    - It's safer
-    - Easily hacked
-    correctAnswerIndex: 1
-  - questionText: "Can someone guess your password if it\u2019s your pet\u2019s name?"
-    answers:
-    - Yes
-    - No
-    correctAnswerIndex: 0
-  - questionText: " Is it safe to use \u201Cpassword123\u201D as your password"
-    answers:
-    - Yes
-    - No
-    correctAnswerIndex: 1
 --- !u!114 &787929979
 MonoBehaviour:
   m_ObjectHideFlags: 0
