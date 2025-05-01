@@ -18,6 +18,8 @@ public class QuestionController : MonoBehaviour
     private bool isLevel2 = false;
     private bool isShowingShieldChoice = false;
     private int currentShieldCount = 0;
+    private int currentQuestionIndex = 0;
+    private List<QuestionModel.QuestionData> questions = new List<QuestionModel.QuestionData>();
 
     private void Start()
     {
@@ -165,29 +167,14 @@ public class QuestionController : MonoBehaviour
 
     private void HandleQuestionsExhausted()
     {
-        
-        
-        HeartManager heartManager = FindObjectOfType<HeartManager>();
-        if (heartManager != null)
+        // Sync one final time before ending
+        if (ScoreManager.Instance != null)
         {
-            int currentHealth = heartManager.GetCurrentHealth();
-            
-            if (currentHealth > 0)
-            {
-                GameWonController.SetLastPlayedLevel(SceneManager.GetActiveScene().name);
-                SceneManager.LoadScene("GameWon");
-            }
-            else
-            {
-                GameOverController.SetLastPlayedLevel(SceneManager.GetActiveScene().name);
-                SceneManager.LoadScene("GameOver");
-            }
+            StartCoroutine(FinalSyncAndEndLevel());
         }
         else
         {
-            
-            GameOverController.SetLastPlayedLevel(SceneManager.GetActiveScene().name);
-            SceneManager.LoadScene("GameOver");
+            EndLevel();
         }
     }
 
@@ -206,6 +193,22 @@ public class QuestionController : MonoBehaviour
         ObstacleSpawner.canSpawn = true;
         ShieldSpawner.canSpawn = true;
         
+        // Start coroutine to sync score and wait before next question
+        StartCoroutine(SyncAndWaitForNextQuestion());
+    }
+
+    private IEnumerator SyncAndWaitForNextQuestion()
+    {
+        // Sync the score first
+        if (ScoreManager.Instance != null)
+        {
+            yield return StartCoroutine(ScoreManager.Instance.UpdateBestScoreCoroutine());
+        }
+        
+        // Then wait before next question
+        yield return new WaitForSeconds(2f);
+        
+        // Start next question
         StartCoroutine(WaitBeforeNextQuestion());
     }
 
@@ -278,5 +281,36 @@ public class QuestionController : MonoBehaviour
         
         // Now show the actual question
         StartNormalQuestion();
+    }
+
+    private void EndLevel()
+    {
+        HeartManager heartManager = FindObjectOfType<HeartManager>();
+        if (heartManager != null)
+        {
+            int currentHealth = heartManager.GetCurrentHealth();
+            
+            if (currentHealth > 0)
+            {
+                GameWonController.SetLastPlayedLevel(SceneManager.GetActiveScene().name);
+                SceneManager.LoadScene("GameWon");
+            }
+            else
+            {
+                GameOverController.SetLastPlayedLevel(SceneManager.GetActiveScene().name);
+                SceneManager.LoadScene("GameOver");
+            }
+        }
+        else
+        {
+            GameOverController.SetLastPlayedLevel(SceneManager.GetActiveScene().name);
+            SceneManager.LoadScene("GameOver");
+        }
+    }
+
+    private IEnumerator FinalSyncAndEndLevel()
+    {
+        yield return StartCoroutine(ScoreManager.Instance.UpdateBestScoreCoroutine());
+        EndLevel();
     }
 } 

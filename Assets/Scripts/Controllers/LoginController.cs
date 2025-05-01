@@ -39,7 +39,7 @@ public class LoginController : MonoBehaviour
         yield return StartCoroutine(NetworkManager.Instance.Login(
             email, 
             "", // Empty password for offline login attempt
-            OnAutoLoginResponse));
+            (success, message, requiresVerification) => OnAutoLoginResponse(success, message, requiresVerification)));
     }
     
     private void OnAutoLoginResponse(bool success, string message, bool requiresVerification)
@@ -83,10 +83,10 @@ public class LoginController : MonoBehaviour
         StartCoroutine(NetworkManager.Instance.Login(
             email, 
             password, 
-            OnLoginResponse));
+            (success, message, requiresVerification) => StartCoroutine(HandleLoginResponse(success, message, requiresVerification))));
     }
     
-    private void OnLoginResponse(bool success, string message, bool requiresVerification)
+    private IEnumerator HandleLoginResponse(bool success, string message, bool requiresVerification)
     {
         if (success)
         {
@@ -109,14 +109,15 @@ public class LoginController : MonoBehaviour
                 PlayerPrefs.SetInt("isLoggedIn", 1);
                 PlayerPrefs.Save();
                 
-                // Sync scores with server
-                SyncUserProgressWithServer(email);
+                // Sync scores with server and wait for completion
+                yield return StartCoroutine(SyncUserProgressWithServerCoroutine(email));
                 
                 // Login successful, show success message
                 loginView.ShowSuccess();
                 
                 // Wait for 2 seconds then go to main menu
-                StartCoroutine(DelayedRedirect());
+                yield return new WaitForSeconds(2f);
+                SceneManager.LoadScene("MainMenu");
             }
         }
         else
@@ -126,14 +127,21 @@ public class LoginController : MonoBehaviour
         }
     }
     
-    // Sync user progress with server
-    private void SyncUserProgressWithServer(string email)
+    // Sync user progress with server and wait for completion
+    private IEnumerator SyncUserProgressWithServerCoroutine(string email)
     {
         // Find the ProgressSynchronizer in the scene
         ProgressSynchronizer synchronizer = FindObjectOfType<ProgressSynchronizer>();
         
-        // Start the synchronization process
-        synchronizer.SyncProgressWithServer(email);
+        if (synchronizer != null)
+        {
+            bool syncComplete = false;
+            synchronizer.SyncProgressWithServer(email, () => syncComplete = true);
+            
+            // Wait for sync to complete
+            while (!syncComplete)
+                yield return null;
+        }
     }
     
     private IEnumerator DelayedRedirect()
@@ -149,5 +157,11 @@ public class LoginController : MonoBehaviour
     {
         // Go to register scene
         SceneManager.LoadScene("RegisterScene");
+    }
+
+    // Sync user progress with server
+    private void SyncUserProgressWithServer(string email)
+    {
+        StartCoroutine(SyncUserProgressWithServerCoroutine(email));
     }
 } 

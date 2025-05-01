@@ -8,12 +8,12 @@ public class ProgressSynchronizer : MonoBehaviour
 {
    
 
-    public void SyncProgressWithServer(string userEmail)
+    public void SyncProgressWithServer(string userEmail, Action onComplete = null)
     {
-        StartCoroutine(FetchAndSyncProgress(userEmail));
+        StartCoroutine(FetchAndSyncProgress(userEmail, onComplete));
     }
 
-    private IEnumerator FetchAndSyncProgress(string userEmail)
+    private IEnumerator FetchAndSyncProgress(string userEmail, Action onComplete)
     {
         yield return StartCoroutine(NetworkManager.Instance.GetGameProgress(userEmail, 
             (success, bestScoresJson) => {
@@ -34,6 +34,9 @@ public class ProgressSynchronizer : MonoBehaviour
                     // If fetch fails, try to use local scores
                     CompareAndUpdateBestScores(userEmail, new Dictionary<string, int>());
                 }
+                
+                // Call completion callback if provided
+                onComplete?.Invoke();
             }));
     }
 

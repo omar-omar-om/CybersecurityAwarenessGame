@@ -39,9 +39,22 @@ public class HeartManager : MonoBehaviour
 
         if (heartSystem.CurrentHearts <= 0)
         {
-            // Load the game over scene
-            SceneManager.LoadScene("GameOver");
+            // Start coroutine to sync score before game over
+            StartCoroutine(SyncAndGameOver());
         }
+    }
+
+    private IEnumerator SyncAndGameOver()
+    {
+        // Sync the score first
+        if (ScoreManager.Instance != null)
+        {
+            yield return StartCoroutine(ScoreManager.Instance.UpdateBestScoreCoroutine());
+        }
+        
+        // Then load the game over scene
+        GameOverController.SetLastPlayedLevel(SceneManager.GetActiveScene().name);
+        SceneManager.LoadScene("GameOver");
     }
 
     public int GetCurrentHealth()

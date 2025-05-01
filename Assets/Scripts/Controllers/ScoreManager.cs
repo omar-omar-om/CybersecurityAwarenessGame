@@ -54,7 +54,7 @@ public class ScoreManager : MonoBehaviour
     private void OnLevelWasLoaded(int level)
     {
         // Check if current score is higher than best score before resetting
-        UpdateBestScore();
+        StartCoroutine(UpdateBestScoreCoroutine());
         
         // Reset score when loading a new level
         ResetScore();
@@ -195,7 +195,7 @@ public class ScoreManager : MonoBehaviour
         }
         
         // Check if current score is higher than best score
-        UpdateBestScore();
+        StartCoroutine(UpdateBestScoreCoroutine());
         
         // Update UI
         UpdateScoreDisplay();
@@ -241,16 +241,6 @@ public class ScoreManager : MonoBehaviour
         }
     }
     
-    // Update the best score if the current score is higher
-    private void UpdateBestScore()
-    {
-        if (score > bestScore)
-        {
-            bestScore = score;
-            SaveBestScore();
-        }
-    }
-    
     // Gets the score key for the specified level
     private string GetScoreKey(string level)
     {
@@ -267,7 +257,7 @@ public class ScoreManager : MonoBehaviour
     }
     
     // Save the best score for the current level
-    private void SaveBestScore()
+    private IEnumerator SaveBestScoreCoroutine()
     {
         string currentLevel = SceneManager.GetActiveScene().name;
         string scoreKey = GetScoreKey(currentLevel);
@@ -275,29 +265,50 @@ public class ScoreManager : MonoBehaviour
         PlayerPrefs.Save();
         
         // Also update best score on the server if online
-        UpdateBestScoreOnServer();
+        yield return StartCoroutine(UpdateBestScoreOnServerCoroutine());
     }
     
     // Update best score on the server (if online)
-    private void UpdateBestScoreOnServer()
+    private IEnumerator UpdateBestScoreOnServerCoroutine()
     {
         // Get the current user ID
         string userId = PlayerPrefs.GetString("UserID", "");
         
-        try
-        {
-            // Get the current scene name
-            string currentLevel = SceneManager.GetActiveScene().name;
+        if (string.IsNullOrEmpty(userId))
+            yield break;
             
-            // Create a JSON object for best scores
-            string bestScoresJson = $"{{\"{currentLevel}\": {bestScore}}}";
+        // Get the current scene name
+        string currentLevel = SceneManager.GetActiveScene().name;
+        
+        // Create a JSON object for best scores
+        string bestScoresJson = $"{{\"{currentLevel}\": {bestScore}}}";
+        
+        bool syncComplete = false;
+        string errorMessage = "";
+        
+        // Start a coroutine to send the data
+        yield return StartCoroutine(NetworkManager.Instance.UpdateGameProgressCoroutine(userId, bestScoresJson, 
+            (success, message) => {
+                syncComplete = true;
+                if (!success)
+                    errorMessage = message;
+            }));
             
-            // Start a coroutine to send the data
-            StartCoroutine(NetworkManager.Instance.UpdateGameProgressCoroutine(userId, bestScoresJson));
-        }
-        catch (Exception)
+        // Wait for sync to complete
+        while (!syncComplete)
+            yield return null;
+            
+        if (!string.IsNullOrEmpty(errorMessage))
+            Debug.LogError($"Failed to sync score: {errorMessage}");
+    }
+
+    // Update the best score if the current score is higher
+    public IEnumerator UpdateBestScoreCoroutine()
+    {
+        if (score > bestScore)
         {
-            // Silently fail if there's an error updating the server
+            bestScore = score;
+            yield return StartCoroutine(SaveBestScoreCoroutine());
         }
     }
 
