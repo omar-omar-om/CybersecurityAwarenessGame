@@ -54,7 +54,7 @@ public class HeartManager : MonoBehaviour
         
         // Then load the game over scene
         GameOverController.SetLastPlayedLevel(SceneManager.GetActiveScene().name);
-        SceneManager.LoadScene("GameOver");
+            SceneManager.LoadScene("GameOver");
     }
 
     public int GetCurrentHealth()

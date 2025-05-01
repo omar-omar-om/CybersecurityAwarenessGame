@@ -277,16 +277,16 @@ public class ScoreManager : MonoBehaviour
         if (string.IsNullOrEmpty(userId))
             yield break;
             
-        // Get the current scene name
-        string currentLevel = SceneManager.GetActiveScene().name;
-        
-        // Create a JSON object for best scores
-        string bestScoresJson = $"{{\"{currentLevel}\": {bestScore}}}";
+            // Get the current scene name
+            string currentLevel = SceneManager.GetActiveScene().name;
+            
+            // Create a JSON object for best scores
+            string bestScoresJson = $"{{\"{currentLevel}\": {bestScore}}}";
         
         bool syncComplete = false;
         string errorMessage = "";
-        
-        // Start a coroutine to send the data
+            
+            // Start a coroutine to send the data
         yield return StartCoroutine(NetworkManager.Instance.UpdateGameProgressCoroutine(userId, bestScoresJson, 
             (success, message) => {
                 syncComplete = true;
